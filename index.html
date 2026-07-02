@@ -180,11 +180,131 @@
     });
   </script>
 
+  <!-- ═══════════ SCRIPT DE URGENCIA + ESCASEZ ═══════════ -->
+  <script>
+    (function() {
+      // Perú = UTC-5
+      var now = new Date();
+      var peruOffset = -5 * 60;
+      var localOffset = now.getTimezoneOffset();
+      var peruTime = new Date(now.getTime() + (localOffset + peruOffset) * 60000);
+      var hour = peruTime.getHours();
+      var day = peruTime.getDate();
+      var month = peruTime.getMonth(); // 0=ene, 5=jun, 6=jul, 11=dic
+      var year = peruTime.getFullYear();
+
+      // ═══ FECHAS ESPECIALES 2026 ═══
+      var specialDates = [
+        { name: '❤️ San Valentín', month: 1, day: 14, emoji: '🌹', msg: '¡Sorprende a tu persona especial! Pide con anticipación.' },
+        { name: '👩‍👧 Día de la Madre', month: 4, day: 10, emoji: '💐', msg: '¡El detalle perfecto para mamá! Pedidos ya.' },
+        { name: '👨‍👦 Día del Padre', month: 5, day: 21, emoji: '🎁', msg: '¡Regala algo único a papá! Separamos tu pedido.' },
+        { name: '🇵🇪 Fiestas Patrias', month: 6, day: 28, emoji: '🇵🇪', msg: '¡Celebra con un detalle especial! Reserva tu ramo.' },
+        { name: '💛 Día de la Amistad', month: 8, day: 21, emoji: '🌻', msg: '¡Un girasol para tu amiga especial! Pide ya.' },
+        { name: '🎄 Navidad', month: 11, day: 25, emoji: '🎄', msg: '¡Detalles navideños! Pide con tiempo.' }
+      ];
+
+      var banner = document.getElementById('dv-urgency');
+      var bannerText = document.getElementById('dv-urgency-text');
+      var today = new Date(year, month, day);
+
+      // Buscar la próxima fecha especial
+      var nextSpecial = null;
+      var minDiff = Infinity;
+      for (var i = 0; i < specialDates.length; i++) {
+        var sd = specialDates[i];
+        var specialDay = new Date(year, sd.month, sd.day);
+        // Si ya pasó este año, calcular para el próximo año
+        if (specialDay < today) {
+          specialDay = new Date(year + 1, sd.month, sd.day);
+        }
+        var diff = Math.ceil((specialDay - today) / (1000 * 60 * 60 * 24));
+        if (diff < minDiff) {
+          minDiff = diff;
+          nextSpecial = { date: sd, diff: diff, fullDate: specialDay };
+        }
+      }
+
+      var message = '';
+
+      // Si estamos a 7 días o menos de una fecha especial
+      if (nextSpecial && nextSpecial.diff <= 7) {
+        if (nextSpecial.diff === 0) {
+          message = nextSpecial.date.emoji + ' ¡Hoy es ' + nextSpecial.date.name + '! ' + nextSpecial.date.msg;
+        } else if (nextSpecial.diff === 1) {
+          message = nextSpecial.date.emoji + ' ¡Mañana es ' + nextSpecial.date.name + '! ⏰ ' + nextSpecial.date.msg;
+        } else {
+          message = nextSpecial.date.emoji + ' Faltan ' + nextSpecial.diff + ' días para ' + nextSpecial.date.name + ' — ' + nextSpecial.date.msg;
+        }
+        banner.classList.remove('hidden');
+        banner.classList.add('bg-gradient-to-r', 'from-red-500', 'via-brand-primary', 'to-purple-500');
+      }
+      // Si es antes de las 3 PM: urgencia de entrega hoy
+      else if (hour < 15) {
+        var horaCierre = 15;
+        var horasRestantes = horaCierre - hour;
+        var minsRestantes = 60 - peruTime.getMinutes();
+        if (minsRestantes === 60) minsRestantes = 0;
+        message = '⚡ ¡Pide antes de las 3 PM y recibe HOY! Quedan ' + horasRestantes + 'h ' + (minsRestantes > 0 ? minsRestantes + 'm' : '') + ' — ¡No te quedes sin tu detalle!';
+        banner.classList.remove('hidden');
+      }
+      // Noche: mensaje de urgencia suave
+      else if (hour >= 15 && hour < 20) {
+        message = '🌙 ¿Pedido urgente para mañana? Escríbenos ya — preparamos tu detalle esta noche.';
+        banner.classList.remove('hidden');
+      }
+
+      if (message) {
+        bannerText.textContent = message;
+      }
+
+      // ═══ BADGES "Entrega hoy" en productos ═══
+      if (hour < 15 && !banner.classList.contains('bg-gradient-to-r')) {
+        var productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(function(card) {
+          var badgeArea = card.querySelector('.p-5');
+          if (badgeArea) {
+            var existingBadge = badgeArea.querySelector('.badge-entrega-hoy');
+            if (!existingBadge) {
+              var badge = document.createElement('span');
+              badge.className = 'badge-entrega-hoy inline-block bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-full ml-2';
+              badge.textContent = '⚡ Entrega hoy';
+              var titleEl = badgeArea.querySelector('h3');
+              if (titleEl) {
+                titleEl.appendChild(badge);
+              }
+            }
+          }
+        });
+      }
+
+      // ═══ Ajustar navbar para que no tape el banner ═══
+      if (!banner.classList.contains('hidden')) {
+        var navbar = document.querySelector('nav');
+        if (navbar) {
+          navbar.style.top = '0';
+          // El banner ya es sticky top-0, el nav también lo es → el nav se pega debajo
+        }
+      }
+
+      // ═══ Verificar si el banner de temporada cubre al nav ═══
+      var navSticky = document.querySelector('nav.sticky, nav[class*="sticky"]');
+      if (navSticky && !banner.classList.contains('hidden')) {
+        // Ajustar el top del nav para que quede debajo del banner
+        // El banner tiene py-2 (~40px)
+      }
+    })();
+  </script>
+
 </head>
 <body class="bg-brand-bg text-gray-800">
 
+<!-- ═══════════ BANNER DE URGENCIA ═══════════ -->
+<div id="dv-urgency" class="hidden bg-gradient-to-r from-brand-primary via-pink-500 to-brand-primary text-white text-center py-2 px-4 text-sm font-bold shadow-md sticky top-0 z-50">
+  <span id="dv-urgency-text"></span>
+</div>
+
 <!-- ═══════════ NAVBAR ═══════════ -->
-<nav class="bg-white/90 backdrop-blur sticky top-0 z-50 shadow-sm">
+<nav class="bg-white/90 backdrop-blur sticky top-0 z-40 shadow-sm">
   <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
     <div class="flex items-center gap-2">
       <span class="text-3xl">🎀</span>

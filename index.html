@@ -312,6 +312,7 @@
     </div>
     <div class="hidden md:flex gap-6 text-sm font-medium">
       <a href="#productos" class="hover:text-brand-primary transition">Productos</a>
+      <a href="#galeria" class="hover:text-brand-primary transition">Galería</a>
       <a href="#testimonios" class="hover:text-brand-primary transition">Reseñas</a>
       <a href="#como-pedir" class="hover:text-brand-primary transition">Cómo pedir</a>
       <a href="#contacto" class="hover:text-brand-primary transition">Contacto</a>
@@ -715,6 +716,102 @@
       <a href="https://wa.me/51931699656?text=Hola%20Aleydy,%20quiero%20dejar%20mi%20reseña%20🎀" target="_blank"
          class="inline-block border-2 border-brand-primary text-brand-primary px-6 py-2 rounded-full text-sm font-bold hover:bg-brand-primary hover:text-white transition">
         ✍️ Escribir reseña por WhatsApp
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ GALERÍA ═══════════ -->
+<section id="galeria" class="py-16 bg-brand-bg">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="font-brand text-3xl md:text-4xl font-bold text-center mb-2">Galería de Entregas</h2>
+    <p class="text-gray-500 text-center mb-10">Así quedan nuestros detalles en manos de clientes reales ✨</p>
+
+    <!-- Masonry grid con CSS columns -->
+    <div class="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+
+      <!-- Foto 1: Ramo Cumpleaños (principal) -->
+      <div class="break-inside-avoid rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition cursor-pointer group" onclick="this.querySelector('img').requestFullscreen?.()">
+        <picture>
+          <source srcset="assets/images/ramo-cumpleanos.webp" type="image/webp">
+          <img src="assets/images/ramo-cumpleanos.jpg" alt="Ramo Feliz Cumpleaños Premium - 50 rosas con corona dorada"
+               class="w-full h-auto group-hover:scale-105 transition duration-500" loading="lazy">
+        </picture>
+        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition"></div>
+      </div>
+
+      <!-- Foto 2: Ramo Mariposas -->
+      <div class="break-inside-avoid rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition cursor-pointer group" onclick="this.querySelector('img').requestFullscreen?.()">
+        <picture>
+          <source srcset="assets/images/ramo-mariposas.webp" type="image/webp">
+          <img src="assets/images/ramo-mariposas.jpg" alt="Ramo Mariposas con Luces LED"
+               class="w-full h-auto group-hover:scale-105 transition duration-500" loading="lazy">
+        </picture>
+      </div>
+
+      <!-- Foto 3: Ramo Cumpleaños variante 2 (rosa/morado) -->
+      <div class="break-inside-avoid rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition cursor-pointer group" onclick="this.querySelector('img').requestFullscreen?.()">
+        <picture>
+          <source srcset="assets/images/ramo-cumpleanos-2.webp" type="image/webp">
+          <img src="assets/images/ramo-cumpleanos-2.jpg" alt="Ramo Cumpleaños - rosas y morado"
+               class="w-full h-auto group-hover:scale-105 transition duration-500" loading="lazy">
+        </picture>
+      </div>
+
+      <!-- Foto 4: Ramo Girasol -->
+      <div class="break-inside-avoid rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition cursor-pointer group" onclick="this.querySelector('img').requestFullscreen?.()">
+        <picture>
+          <source srcset="assets/images/ramo-girasol.webp" type="image/webp">
+          <img src="assets/images/ramo-girasol.jpg" alt="Ramo de Girasol eterno"
+               class="w-full h-auto group-hover:scale-105 transition duration-500" loading="lazy">
+        </picture>
+      </div>
+
+      <!-- Foto 5: Ramo Real Madrid -->
+      <div class="break-inside-avoid rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition cursor-pointer group" onclick="this.querySelector('img').requestFullscreen?.()">
+        <picture>
+          <source srcset="assets/images/ramo-real-madrid.webp" type="image/webp">
+          <img src="assets/images/ramo-real-madrid.jpg" alt="Ramo Temático Real Madrid"
+               class="w-full h-auto group-hover:scale-105 transition duration-500" loading="lazy">
+        </picture>
+      </div>
+
+      <!-- Foto 6: Ramo Básico -->
+      <div class="break-inside-avoid rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition cursor-pointer group" onclick="this.querySelector('img').requestFullscreen?.()">
+        <picture>
+          <source srcset="assets/images/ramo-basico.webp" type="image/webp">
+          <img src="assets/images/ramo-basico.jpg" alt="Ramo Básico - 7 rosas eternas"
+               class="w-full h-auto group-hover:scale-105 transition duration-500" loading="lazy">
+        </picture>
+      </div>
+
+      <!-- Foto 7: Repetimos una de las mejores para llenar el grid -->
+      <div class="break-inside-avoid rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition cursor-pointer group" onclick="this.querySelector('img').requestFullscreen?.()">
+        <picture>
+          <source srcset="assets/images/ramo-cumpleanos.webp" type="image/webp">
+          <img src="assets/images/ramo-cumpleanos.jpg" alt="Detalles Aleydy - Entrega real"
+               class="w-full h-auto group-hover:scale-105 transition duration-500" loading="lazy">
+        </picture>
+      </div>
+
+      <!-- Foto 8: Ramo Mariposas otra vista -->
+      <div class="break-inside-avoid rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition cursor-pointer group" onclick="this.querySelector('img').requestFullscreen?.()">
+        <picture>
+          <source srcset="assets/images/ramo-girasol.webp" type="image/webp">
+          <img src="assets/images/ramo-girasol.jpg" alt="Detalles Aleydy - Girasol eterno"
+               class="w-full h-auto group-hover:scale-105 transition duration-500" loading="lazy">
+        </picture>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-10">
+      <p class="text-gray-500 text-sm mb-3">¿Querés ver más? Pedí tu catálogo completo por WhatsApp</p>
+      <a href="https://wa.me/51931699656?text=Hola,%20quiero%20ver%20más%20fotos%20de%20sus%20trabajos%20🎀" target="_blank"
+         class="inline-block border-2 border-brand-primary text-brand-primary px-6 py-2 rounded-full text-sm font-bold hover:bg-brand-primary hover:text-white transition">
+        📸 Ver más entregas
       </a>
     </div>
 

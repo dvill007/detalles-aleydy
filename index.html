@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalles Aleydy 🎀 — Detalles desde el corazón</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { primary: '#E91E8C', light: '#F8BBD0', accent: '#FFD700', bg: '#FFF5F8' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+    .font-brand { font-family: 'Playfair Display', Georgia, serif; }
+    html { scroll-behavior: smooth; }
+    .whatsapp-float {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+  </style>
+</head>
+<body class="bg-brand-bg text-gray-800">
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="bg-white/90 backdrop-blur sticky top-0 z-50 shadow-sm">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="text-3xl">🎀</span>
+      <span class="font-brand text-xl font-bold text-brand-primary">Detalles Aleydy</span>
+    </div>
+    <div class="hidden md:flex gap-6 text-sm font-medium">
+      <a href="#productos" class="hover:text-brand-primary transition">Productos</a>
+      <a href="#como-pedir" class="hover:text-brand-primary transition">Cómo pedir</a>
+      <a href="#contacto" class="hover:text-brand-primary transition">Contacto</a>
+    </div>
+    <a id="dv-cta-nav" href="https://wa.me/51931699656" target="_blank"
+       class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition shadow-md">
+      📱 Pedir ahora
+    </a>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="dv-hero" class="relative overflow-hidden bg-gradient-to-br from-brand-bg via-white to-brand-light">
+  <div class="max-w-6xl mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center gap-10">
+    <div class="flex-1 text-center md:text-left">
+      <span class="inline-block bg-brand-light text-brand-primary px-4 py-1 rounded-full text-sm font-bold mb-4">
+        ✨ Delivery en Pucallpa
+      </span>
+      <h1 class="font-brand text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-4">
+        Detalles desde<br>el <span class="text-brand-primary">corazón</span> 🎀
+      </h1>
+      <p class="text-lg text-gray-600 mb-6 max-w-lg">
+        Ramos de rosas eternas, boxes personalizados y detalles únicos para esa persona especial. 
+        Tú eliges el color, nosotras lo creamos con amor.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+        <a id="dv-cta-hero" href="https://wa.me/51931699656" target="_blank"
+           class="bg-green-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-green-600 transition shadow-lg text-center">
+          🎁 Pide por WhatsApp
+        </a>
+        <a href="#productos" class="border-2 border-brand-primary text-brand-primary px-8 py-4 rounded-full text-lg font-bold hover:bg-brand-primary hover:text-white transition text-center">
+          Ver catálogo
+        </a>
+      </div>
+    </div>
+    <div class="flex-1 flex justify-center">
+      <div class="relative w-72 h-72 md:w-96 md:h-96 bg-brand-light rounded-full flex items-center justify-center shadow-2xl">
+        <span class="text-[120px]">💐</span>
+      </div>
+    </div>
+  </div>
+  <!-- Decorative dots -->
+  <div class="absolute top-10 left-10 text-brand-light text-6xl opacity-30">•</div>
+  <div class="absolute bottom-10 right-10 text-brand-primary text-6xl opacity-20">•</div>
+</section>
+
+<!-- ═══════════ FEATURES ═══════════ -->
+<section id="dv-features" class="py-12 bg-white">
+  <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="text-center p-6 rounded-2xl bg-brand-bg">
+      <span class="text-4xl">🎨</span>
+      <h3 class="font-brand text-xl font-bold mt-3 mb-2">Tú eliges el color</h3>
+      <p class="text-gray-600 text-sm">Cada detalle se personaliza a tu gusto. Rosas, mariposas, cajas: el color que imagines.</p>
+    </div>
+    <div class="text-center p-6 rounded-2xl bg-brand-bg">
+      <span class="text-4xl">💝</span>
+      <h3 class="font-brand text-xl font-bold mt-3 mb-2">Dedicatoria incluida</h3>
+      <p class="text-gray-600 text-sm">Todos nuestros ramos y boxes llevan una dedicatoria especial con tu mensaje.</p>
+    </div>
+    <div class="text-center p-6 rounded-2xl bg-brand-bg">
+      <span class="text-4xl">🚀</span>
+      <h3 class="font-brand text-xl font-bold mt-3 mb-2">Delivery en Pucallpa</h3>
+      <p class="text-gray-600 text-sm">Entregamos tu detalle directamente donde nos indiques. Rápido y seguro.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PRODUCTOS ═══════════ -->
+<section id="productos" class="py-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="font-brand text-3xl md:text-4xl font-bold text-center mb-2">Nuestros Detalles</h2>
+    <p class="text-gray-500 text-center mb-10">Desde S/18 — Para toda ocasión</p>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Producto 1 -->
+      <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition group">
+        <div class="h-48 bg-brand-light flex items-center justify-center text-6xl group-hover:scale-105 transition">
+          🌹
+        </div>
+        <div class="p-5">
+          <span class="text-brand-primary text-sm font-bold">Más vendido</span>
+          <h3 class="font-brand text-lg font-bold mt-1">Ramo Básico</h3>
+          <p class="text-gray-500 text-sm mt-1">7 rosas eternas + dedicatoria + mariposa</p>
+          <div class="flex items-center justify-between mt-4">
+            <span class="text-2xl font-bold text-brand-primary">S/45</span>
+            <a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Básico%20de%20Detalles%20Aleydy%20🎀" target="_blank"
+               class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 2 -->
+      <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition group">
+        <div class="h-48 bg-brand-light flex items-center justify-center text-6xl group-hover:scale-105 transition">
+          💐
+        </div>
+        <div class="p-5">
+          <h3 class="font-brand text-lg font-bold mt-1">Ramo Eterno</h3>
+          <p class="text-gray-500 text-sm mt-1">10 rosas eternas + dedicatoria + lazo con frase</p>
+          <div class="flex items-center justify-between mt-4">
+            <span class="text-2xl font-bold text-brand-primary">S/55</span>
+            <a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Eterno%20de%20Detalles%20Aleydy%20🎀" target="_blank"
+               class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 3 -->
+      <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition group">
+        <div class="h-48 bg-brand-light flex items-center justify-center text-6xl group-hover:scale-105 transition">
+          🎂
+        </div>
+        <div class="p-5">
+          <span class="text-brand-primary text-sm font-bold">Premium</span>
+          <h3 class="font-brand text-lg font-bold mt-1">Ramo Feliz Cumpleaños</h3>
+          <p class="text-gray-500 text-sm mt-1">50 rosas eternas + corona de metal + lazo</p>
+          <div class="flex items-center justify-between mt-4">
+            <span class="text-2xl font-bold text-brand-primary">S/280</span>
+            <a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Cumpleaños%20Premium%20de%20Detalles%20Aleydy%20🎀" target="_blank"
+               class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 4 -->
+      <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition group">
+        <div class="h-48 bg-brand-light flex items-center justify-center text-6xl group-hover:scale-105 transition">
+          🦋
+        </div>
+        <div class="p-5">
+          <h3 class="font-brand text-lg font-bold mt-1">Ramo Mariposas con Luces LED</h3>
+          <p class="text-gray-500 text-sm mt-1">20 mariposas + dedicatoria + luces LED</p>
+          <div class="flex items-center justify-between mt-4">
+            <span class="text-2xl font-bold text-brand-primary">S/55</span>
+            <a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20de%20Mariposas%20LED%20de%20Detalles%20Aleydy%20🎀" target="_blank"
+               class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 5 -->
+      <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition group">
+        <div class="h-48 bg-brand-light flex items-center justify-center text-6xl group-hover:scale-105 transition">
+          🌻
+        </div>
+        <div class="p-5">
+          <h3 class="font-brand text-lg font-bold mt-1">Ramo de Girasol</h3>
+          <p class="text-gray-500 text-sm mt-1">1 girasol eterno + dedicatoria + mariposa</p>
+          <div class="flex items-center justify-between mt-4">
+            <span class="text-2xl font-bold text-brand-primary">S/20</span>
+            <a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Girasol%20de%20Detalles%20Aleydy%20🎀" target="_blank"
+               class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 6 -->
+      <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition group">
+        <div class="h-48 bg-brand-light flex items-center justify-center text-6xl group-hover:scale-105 transition">
+          🏎️
+        </div>
+        <div class="p-5">
+          <span class="text-brand-primary text-sm font-bold">Temático</span>
+          <h3 class="font-brand text-lg font-bold mt-1">Box Hot Wheels</h3>
+          <p class="text-gray-500 text-sm mt-1">2 carritos + dedicatoria + 2 sublimes + caja decorada</p>
+          <div class="flex items-center justify-between mt-4">
+            <span class="text-2xl font-bold text-brand-primary">S/60</span>
+            <a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Box%20Hot%20Wheels%20de%20Detalles%20Aleydy%20🎀" target="_blank"
+               class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Ver más -->
+    <div class="text-center mt-10">
+      <a href="https://wa.me/51931699656?text=Hola,%20quiero%20ver%20el%20catálogo%20completo%20de%20Detalles%20Aleydy%20🎀" target="_blank"
+         class="inline-block border-2 border-brand-primary text-brand-primary px-8 py-3 rounded-full text-lg font-bold hover:bg-brand-primary hover:text-white transition">
+        📋 Ver catálogo completo (25+ productos)
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ COMO PEDIR ═══════════ -->
+<section id="como-pedir" class="py-16 bg-white">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h2 class="font-brand text-3xl md:text-4xl font-bold mb-10">¿Cómo pedir?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <span class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-light text-brand-primary text-2xl font-bold mb-4">1</span>
+        <h3 class="font-brand text-lg font-bold mb-2">Elige tu detalle</h3>
+        <p class="text-gray-500 text-sm">Explora nuestro catálogo y elige el ramo o box que más te guste</p>
+      </div>
+      <div>
+        <span class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-light text-brand-primary text-2xl font-bold mb-4">2</span>
+        <h3 class="font-brand text-lg font-bold mb-2">Elige el color</h3>
+        <p class="text-gray-500 text-sm">Dinos el color que prefieres y personalizamos tu detalle</p>
+      </div>
+      <div>
+        <span class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-light text-brand-primary text-2xl font-bold mb-4">3</span>
+        <h3 class="font-brand text-lg font-bold mb-2">Recíbelo</h3>
+        <p class="text-gray-500 text-sm">Te lo llevamos a donde estés en Pucallpa. ¡Listo para sorprender!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONTACTO ═══════════ -->
+<section id="contacto" class="py-16 bg-gradient-to-br from-brand-primary to-pink-400 text-white">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h2 class="font-brand text-3xl md:text-4xl font-bold mb-4">¿Listo para sorprender?</h2>
+    <p class="text-xl text-white/90 mb-8">Escríbenos por WhatsApp y arma tu detalle personalizado</p>
+    <a id="dv-whatsapp" href="https://wa.me/51931699656" target="_blank"
+       class="inline-flex items-center gap-3 bg-green-500 text-white px-10 py-5 rounded-full text-xl font-bold hover:bg-green-600 transition shadow-2xl">
+      📱 931 699 656
+    </a>
+    <p class="mt-6 text-white/80 text-sm">🚀 Delivery en Pucallpa · Respuesta rápida</p>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="bg-gray-900 text-white py-10">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <p class="font-brand text-2xl font-bold mb-2">Detalles Aleydy 🎀</p>
+    <p class="text-gray-400 mb-4">Detalles desde el corazón</p>
+    <p class="text-gray-500 text-sm">
+      📱 WhatsApp: <a href="https://wa.me/51931699656" class="text-brand-light hover:underline">931 699 656</a>
+      <span class="mx-2">·</span>
+      🚀 Delivery en Pucallpa
+    </p>
+    <p class="text-gray-600 text-xs mt-6">© 2026 Detalles Aleydy. Hecho con 💖</p>
+  </div>
+</footer>
+
+<!-- ═══════════ WHATSAPP FLOAT ═══════════ -->
+<a id="dv-float-whatsapp" href="https://wa.me/51931699656" target="_blank"
+   class="whatsapp-float fixed bottom-6 right-6 z-50 bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:bg-green-600 transition">
+  💬
+</a>
+
+</body>
+</html>

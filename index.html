@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detalles Aleydy 🎀 — Detalles desde el corazón</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🎀</text></svg>">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -26,6 +27,25 @@
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.08); }
+    }
+    .product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .product-card:hover .product-img {
+      transform: scale(1.06);
+    }
+    /* Placeholder shimmer para productos sin foto */
+    .placeholder-card {
+      background: linear-gradient(135deg, #F8BBD0 0%, #FCE4EC 30%, #F8BBD0 60%, #FCE4EC 100%);
+      background-size: 200% 200%;
+      animation: shimmer 2s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
   </style>
 </head>
@@ -74,9 +94,33 @@
         </a>
       </div>
     </div>
+    <!-- HERO IMAGE: collage de 3 fotos reales -->
     <div class="flex-1 flex justify-center">
-      <div class="relative w-72 h-72 md:w-96 md:h-96 bg-brand-light rounded-full flex items-center justify-center shadow-2xl">
-        <span class="text-[120px]">💐</span>
+      <div class="relative w-80 h-80 md:w-96 md:h-96">
+        <!-- Foto principal centrada -->
+        <div class="absolute inset-4 rounded-3xl overflow-hidden shadow-2xl z-10">
+          <picture>
+            <source srcset="assets/images/ramo-cumpleanos.webp" type="image/webp">
+            <img src="assets/images/ramo-cumpleanos.jpg" alt="Ramo Cumpleaños Premium - Detalles Aleydy" 
+                 class="product-img" loading="eager">
+          </picture>
+        </div>
+        <!-- Foto secundaria flotante -->
+        <div class="absolute -top-2 -right-2 w-32 h-40 md:w-40 md:h-48 rounded-2xl overflow-hidden shadow-xl z-20 rotate-6 border-4 border-white">
+          <picture>
+            <source srcset="assets/images/ramo-mariposas.webp" type="image/webp">
+            <img src="assets/images/ramo-mariposas.jpg" alt="Ramo Mariposas LED" 
+                 class="product-img" loading="eager">
+          </picture>
+        </div>
+        <!-- Tercera foto flotante -->
+        <div class="absolute -bottom-2 -left-2 w-28 h-36 md:w-36 md:h-44 rounded-2xl overflow-hidden shadow-xl z-20 -rotate-3 border-4 border-white">
+          <picture>
+            <source srcset="assets/images/ramo-girasol.webp" type="image/webp">
+            <img src="assets/images/ramo-girasol.jpg" alt="Ramo de Girasol" 
+                 class="product-img" loading="eager">
+          </picture>
+        </div>
       </div>
     </div>
   </div>
@@ -114,13 +158,17 @@
     
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      <!-- Producto 1 -->
-      <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition group">
-        <div class="h-48 bg-brand-light flex items-center justify-center text-6xl group-hover:scale-105 transition">
-          🌹
+      <!-- Producto 1: Ramo Básico ✅ CON FOTO -->
+      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <div class="h-56 overflow-hidden">
+          <picture>
+            <source srcset="assets/images/ramo-basico.webp" type="image/webp">
+            <img src="assets/images/ramo-basico.jpg" alt="Ramo Básico - 7 rosas eternas" 
+                 class="product-img" loading="lazy">
+          </picture>
         </div>
         <div class="p-5">
-          <span class="text-brand-primary text-sm font-bold">Más vendido</span>
+          <span class="text-brand-primary text-sm font-bold">🌟 Más vendido</span>
           <h3 class="font-brand text-lg font-bold mt-1">Ramo Básico</h3>
           <p class="text-gray-500 text-sm mt-1">7 rosas eternas + dedicatoria + mariposa</p>
           <div class="flex items-center justify-between mt-4">
@@ -133,10 +181,13 @@
         </div>
       </div>
 
-      <!-- Producto 2 -->
-      <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition group">
-        <div class="h-48 bg-brand-light flex items-center justify-center text-6xl group-hover:scale-105 transition">
-          💐
+      <!-- Producto 2: Ramo Eterno ⚠️ SLOT PENDIENTE -->
+      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <div class="h-56 placeholder-card flex items-center justify-center">
+          <div class="text-center">
+            <span class="text-5xl block mb-2">📸</span>
+            <span class="text-brand-primary text-sm font-medium bg-white/70 px-3 py-1 rounded-full">Foto próximamente</span>
+          </div>
         </div>
         <div class="p-5">
           <h3 class="font-brand text-lg font-bold mt-1">Ramo Eterno</h3>
@@ -151,13 +202,17 @@
         </div>
       </div>
 
-      <!-- Producto 3 -->
-      <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition group">
-        <div class="h-48 bg-brand-light flex items-center justify-center text-6xl group-hover:scale-105 transition">
-          🎂
+      <!-- Producto 3: Ramo Cumpleaños ✅ CON FOTO -->
+      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <div class="h-56 overflow-hidden">
+          <picture>
+            <source srcset="assets/images/ramo-cumpleanos.webp" type="image/webp">
+            <img src="assets/images/ramo-cumpleanos.jpg" alt="Ramo Feliz Cumpleaños Premium - 50 rosas eternas" 
+                 class="product-img" loading="lazy">
+          </picture>
         </div>
         <div class="p-5">
-          <span class="text-brand-primary text-sm font-bold">Premium</span>
+          <span class="text-brand-primary text-sm font-bold">👑 Premium</span>
           <h3 class="font-brand text-lg font-bold mt-1">Ramo Feliz Cumpleaños</h3>
           <p class="text-gray-500 text-sm mt-1">50 rosas eternas + corona de metal + lazo</p>
           <div class="flex items-center justify-between mt-4">
@@ -170,12 +225,17 @@
         </div>
       </div>
 
-      <!-- Producto 4 -->
-      <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition group">
-        <div class="h-48 bg-brand-light flex items-center justify-center text-6xl group-hover:scale-105 transition">
-          🦋
+      <!-- Producto 4: Ramo Mariposas ✅ CON FOTO -->
+      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <div class="h-56 overflow-hidden">
+          <picture>
+            <source srcset="assets/images/ramo-mariposas.webp" type="image/webp">
+            <img src="assets/images/ramo-mariposas.jpg" alt="Ramo Mariposas con Luces LED" 
+                 class="product-img" loading="lazy">
+          </picture>
         </div>
         <div class="p-5">
+          <span class="text-brand-primary text-sm font-bold">✨ Popular</span>
           <h3 class="font-brand text-lg font-bold mt-1">Ramo Mariposas con Luces LED</h3>
           <p class="text-gray-500 text-sm mt-1">20 mariposas + dedicatoria + luces LED</p>
           <div class="flex items-center justify-between mt-4">
@@ -188,10 +248,14 @@
         </div>
       </div>
 
-      <!-- Producto 5 -->
-      <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition group">
-        <div class="h-48 bg-brand-light flex items-center justify-center text-6xl group-hover:scale-105 transition">
-          🌻
+      <!-- Producto 5: Ramo Girasol ✅ CON FOTO -->
+      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <div class="h-56 overflow-hidden">
+          <picture>
+            <source srcset="assets/images/ramo-girasol.webp" type="image/webp">
+            <img src="assets/images/ramo-girasol.jpg" alt="Ramo de Girasol eterno" 
+                 class="product-img" loading="lazy">
+          </picture>
         </div>
         <div class="p-5">
           <h3 class="font-brand text-lg font-bold mt-1">Ramo de Girasol</h3>
@@ -206,18 +270,44 @@
         </div>
       </div>
 
-      <!-- Producto 6 -->
-      <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition group">
-        <div class="h-48 bg-brand-light flex items-center justify-center text-6xl group-hover:scale-105 transition">
-          🏎️
+      <!-- Producto 6: Box Hot Wheels ⚠️ SLOT PENDIENTE -->
+      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <div class="h-56 placeholder-card flex items-center justify-center">
+          <div class="text-center">
+            <span class="text-5xl block mb-2">📸</span>
+            <span class="text-brand-primary text-sm font-medium bg-white/70 px-3 py-1 rounded-full">Foto próximamente</span>
+          </div>
         </div>
         <div class="p-5">
-          <span class="text-brand-primary text-sm font-bold">Temático</span>
+          <span class="text-brand-primary text-sm font-bold">🏎️ Temático</span>
           <h3 class="font-brand text-lg font-bold mt-1">Box Hot Wheels</h3>
           <p class="text-gray-500 text-sm mt-1">2 carritos + dedicatoria + 2 sublimes + caja decorada</p>
           <div class="flex items-center justify-between mt-4">
             <span class="text-2xl font-bold text-brand-primary">S/60</span>
             <a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Box%20Hot%20Wheels%20de%20Detalles%20Aleydy%20🎀" target="_blank"
+               class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">
+              Pedir
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🆕 Producto 7: Ramo Real Madrid ✅ CON FOTO -->
+      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <div class="h-56 overflow-hidden">
+          <picture>
+            <source srcset="assets/images/ramo-real-madrid.webp" type="image/webp">
+            <img src="assets/images/ramo-real-madrid.jpg" alt="Ramo Temático Real Madrid" 
+                 class="product-img" loading="lazy">
+          </picture>
+        </div>
+        <div class="p-5">
+          <span class="text-brand-primary text-sm font-bold">⚽ Nuevo</span>
+          <h3 class="font-brand text-lg font-bold mt-1">Ramo Real Madrid</h3>
+          <p class="text-gray-500 text-sm mt-1">Rosas azul/crema + emblema RM + dedicatoria</p>
+          <div class="flex items-center justify-between mt-4">
+            <span class="text-2xl font-bold text-brand-primary">S/55</span>
+            <a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Real%20Madrid%20de%20Detalles%20Aleydy%20🎀" target="_blank"
                class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">
               Pedir
             </a>

@@ -313,64 +313,176 @@
   </div>
 </nav>
 
-<!-- ═══════════ HERO ═══════════ -->
-<section id="dv-hero" class="relative overflow-hidden bg-gradient-to-br from-brand-bg via-white to-brand-light">
-  <div class="max-w-6xl mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center gap-10">
-    <div class="flex-1 text-center md:text-left">
-      <span class="inline-block bg-brand-light text-brand-primary px-4 py-1 rounded-full text-sm font-bold mb-4">
-        ✨ Delivery en Pucallpa
-      </span>
-      <h1 class="font-brand text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-4">
-        Detalles desde<br>el <span class="text-brand-primary">corazón</span> 🎀
-      </h1>
-      <p class="text-lg text-gray-600 mb-6 max-w-lg">
-        Ramos de rosas eternas, boxes personalizados y detalles únicos para esa persona especial. 
-        Tú eliges el color, nosotras lo creamos con amor.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-        <a id="dv-cta-hero" href="https://wa.me/51931699656" target="_blank"
-           class="bg-green-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-green-600 transition shadow-lg text-center">
-          🎁 Pide por WhatsApp
-        </a>
-        <a href="#productos" class="border-2 border-brand-primary text-brand-primary px-8 py-4 rounded-full text-lg font-bold hover:bg-brand-primary hover:text-white transition text-center">
-          Ver catálogo
-        </a>
-      </div>
-    </div>
-    <!-- HERO IMAGE: collage de 3 fotos reales -->
-    <div class="flex-1 flex justify-center">
-      <div class="relative w-80 h-80 md:w-96 md:h-96">
-        <!-- Foto principal centrada -->
-        <div class="absolute inset-4 rounded-3xl overflow-hidden shadow-2xl z-10">
-          <picture>
-            <source srcset="assets/images/ramo-cumpleanos.webp" type="image/webp">
-            <img src="assets/images/ramo-cumpleanos.jpg" alt="Ramo Cumpleaños Premium - Detalles Aleydy" 
-                 class="product-img" loading="eager">
-          </picture>
-        </div>
-        <!-- Foto secundaria flotante -->
-        <div class="absolute -top-2 -right-2 w-32 h-40 md:w-40 md:h-48 rounded-2xl overflow-hidden shadow-xl z-20 rotate-6 border-4 border-white">
-          <picture>
-            <source srcset="assets/images/ramo-mariposas.webp" type="image/webp">
-            <img src="assets/images/ramo-mariposas.jpg" alt="Ramo Mariposas LED" 
-                 class="product-img" loading="eager">
-          </picture>
-        </div>
-        <!-- Tercera foto flotante -->
-        <div class="absolute -bottom-2 -left-2 w-28 h-36 md:w-36 md:h-44 rounded-2xl overflow-hidden shadow-xl z-20 -rotate-3 border-4 border-white">
-          <picture>
-            <source srcset="assets/images/ramo-girasol.webp" type="image/webp">
-            <img src="assets/images/ramo-girasol.jpg" alt="Ramo de Girasol" 
-                 class="product-img" loading="eager">
-          </picture>
-        </div>
+<!-- ═══════════ HERO SLIDER ═══════════ -->
+<style>
+  .hero-slider { position: relative; overflow: hidden; height: 500px; }
+  @media (min-width: 768px) { .hero-slider { height: 580px; } }
+  .hero-slide {
+    position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-slide.active { opacity: 1; z-index: 1; }
+  .hero-slide-bg {
+    position: absolute; inset: 0; background-size: cover; background-position: center;
+    filter: brightness(0.45);
+  }
+  .hero-slide-content {
+    position: relative; z-index: 2; text-align: center; color: white;
+    max-width: 700px; padding: 0 1.5rem;
+    transform: translateY(20px); opacity: 0; transition: all 0.6s ease 0.2s;
+  }
+  .hero-slide.active .hero-slide-content { transform: translateY(0); opacity: 1; }
+  .hero-badge {
+    display: inline-block; background: rgba(233,30,140,0.85); color: white;
+    padding: 0.4rem 1.2rem; border-radius: 9999px; font-size: 0.85rem;
+    font-weight: 700; margin-bottom: 0.8rem; letter-spacing: 0.5px;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.4rem; font-weight: 700; line-height: 1.15; margin-bottom: 0.8rem;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+  @media (min-width: 768px) { .hero-title { font-size: 3.8rem; } }
+  .hero-subtitle { font-size: 1.1rem; opacity: 0.9; margin-bottom: 1.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .hero-dots {
+    position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+    z-index: 5; display: flex; gap: 10px;
+  }
+  .hero-dot {
+    width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.45);
+    border: none; cursor: pointer; transition: all 0.3s;
+  }
+  .hero-dot.active { background: #E91E8C; transform: scale(1.3); box-shadow: 0 0 8px rgba(233,30,140,0.5); }
+  .hero-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.2); color: white;
+    width: 44px; height: 44px; border-radius: 50%; font-size: 20px;
+    cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center;
+  }
+  .hero-arrow:hover { background: rgba(233,30,140,0.7); border-color: #E91E8C; }
+  .hero-arrow.prev { left: 16px; }
+  .hero-arrow.next { right: 16px; }
+  @media (max-width: 640px) {
+    .hero-slider { height: 460px; }
+    .hero-title { font-size: 1.8rem; }
+    .hero-arrow { width: 36px; height: 36px; font-size: 16px; }
+  }
+  .hero-gradient-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.01) 40%, rgba(0,0,0,0.4) 100%);
+  }
+</style>
+
+<section class="hero-slider" id="heroSlider">
+  <!-- Overlay gradient -->
+  <div class="hero-gradient-overlay"></div>
+
+  <!-- Slide 1 -->
+  <div class="hero-slide active" data-index="0">
+    <div class="hero-slide-bg" style="background-image:url('assets/images/ramo-cumpleanos.jpg')"></div>
+    <div class="hero-slide-content">
+      <span class="hero-badge">✨ Delivery en Pucallpa</span>
+      <h1 class="hero-title">Detalles desde el<br><span style="color:#FFD700">corazón</span> 🎀</h1>
+      <p class="hero-subtitle">Ramos de rosas eternas, boxes personalizados y detalles únicos para esa persona especial.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="https://wa.me/51931699656" target="_blank" class="dv-wa-click bg-green-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-green-600 transition shadow-lg text-center">🎁 Pide por WhatsApp</a>
+        <a href="#productos" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-white hover:text-brand-primary transition text-center backdrop-blur-sm">Ver catálogo</a>
       </div>
     </div>
   </div>
-  <!-- Decorative dots -->
-  <div class="absolute top-10 left-10 text-brand-light text-6xl opacity-30">•</div>
-  <div class="absolute bottom-10 right-10 text-brand-primary text-6xl opacity-20">•</div>
+
+  <!-- Slide 2 -->
+  <div class="hero-slide" data-index="1">
+    <div class="hero-slide-bg" style="background-image:url('assets/images/ramo-mariposas.jpg')"></div>
+    <div class="hero-slide-content">
+      <span class="hero-badge">🦋 Lo más pedido</span>
+      <h2 class="hero-title">Ramos <span style="color:#FFD700">Eternos</span></h2>
+      <p class="hero-subtitle">Mariposas LED, girasoles, rosas eternas y más. Tú eliges el color, nosotras lo creamos.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="https://wa.me/51931699656" target="_blank" class="dv-wa-click bg-green-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-green-600 transition shadow-lg text-center">🎁 Personaliza el tuyo</a>
+        <a href="#productos" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-white hover:text-brand-primary transition text-center backdrop-blur-sm">Ver ramos</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="hero-slide" data-index="2">
+    <div class="hero-slide-bg" style="background-image:url('assets/images/img_5ee90e4148f2.jpg')"></div>
+    <div class="hero-slide-content">
+      <span class="hero-badge">📦 Nuevo</span>
+      <h2 class="hero-title">Boxes <span style="color:#FFD700">Temáticos</span></h2>
+      <p class="hero-subtitle">Spiderman, Universitario, Alianza Lima... Snacks + peluches + decoración personalizada.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="https://wa.me/51931699656" target="_blank" class="dv-wa-click bg-green-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-green-600 transition shadow-lg text-center">🎁 Pide tu box</a>
+        <a href="#productos" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-white hover:text-brand-primary transition text-center backdrop-blur-sm">Ver boxes</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4 -->
+  <div class="hero-slide" data-index="3">
+    <div class="hero-slide-bg" style="background-image:url('assets/images/ramo-real-madrid.jpg')"></div>
+    <div class="hero-slide-content">
+      <span class="hero-badge">⚽ Fanáticos</span>
+      <h2 class="hero-title">Detalles <span style="color:#FFD700">Futboleros</span></h2>
+      <p class="hero-subtitle">Ramo Real Madrid y más sorpresas para el hincha. Porque el fútbol también se celebra con estilo.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="https://wa.me/51931699656" target="_blank" class="dv-wa-click bg-green-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-green-600 transition shadow-lg text-center">🎁 Pedir ahora</a>
+        <a href="#productos" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-white hover:text-brand-primary transition text-center backdrop-blur-sm">Ver catálogo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation arrows -->
+  <button class="hero-arrow prev" onclick="heroPrev()" aria-label="Anterior">&#8249;</button>
+  <button class="hero-arrow next" onclick="heroNext()" aria-label="Siguiente">&#8250;</button>
+
+  <!-- Dots -->
+  <div class="hero-dots" id="heroDots">
+    <button class="hero-dot active" onclick="heroGoTo(0)"></button>
+    <button class="hero-dot" onclick="heroGoTo(1)"></button>
+    <button class="hero-dot" onclick="heroGoTo(2)"></button>
+    <button class="hero-dot" onclick="heroGoTo(3)"></button>
+  </div>
 </section>
+
+<script>
+let heroCurrent = 0;
+const heroTotal = 4;
+let heroInterval;
+
+function heroGoTo(index) {
+  document.querySelectorAll('.hero-slide').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelectorAll('.hero-dot').forEach(function(d) { d.classList.remove('active'); });
+  document.querySelector('.hero-slide[data-index="' + index + '"]').classList.add('active');
+  document.querySelectorAll('.hero-dot')[index].classList.add('active');
+  heroCurrent = index;
+}
+
+function heroNext() { heroGoTo((heroCurrent + 1) % heroTotal); resetHeroTimer(); }
+function heroPrev() { heroGoTo((heroCurrent - 1 + heroTotal) % heroTotal); resetHeroTimer(); }
+
+function resetHeroTimer() {
+  clearInterval(heroInterval);
+  heroInterval = setInterval(heroNext, 5000);
+}
+
+// Pause on hover
+document.getElementById('heroSlider').addEventListener('mouseenter', function() { clearInterval(heroInterval); });
+document.getElementById('heroSlider').addEventListener('mouseleave', function() { heroInterval = setInterval(heroNext, 5000); });
+
+// Touch swipe
+var touchStartX = 0;
+document.getElementById('heroSlider').addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+document.getElementById('heroSlider').addEventListener('touchend', function(e) {
+  var diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) { diff > 0 ? heroNext() : heroPrev(); }
+});
+
+// Start
+heroInterval = setInterval(heroNext, 5000);
+</script>
 
 <!-- ═══════════ FEATURES ═══════════ -->
 <section id="dv-features" class="py-12 bg-white">

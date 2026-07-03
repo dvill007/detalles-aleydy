@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Firebase
+keys/
+*.json
+!vercel.json
+!structured-data.json
+
+# Env
+.env
+.env.local
+.env.production
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Build
+dist/
+build/

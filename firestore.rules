@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Solo el service account (servidor admin.py) puede acceder
+    // Los clientes web NO acceden directamente a Firestore
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

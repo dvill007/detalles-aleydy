@@ -80,11 +80,11 @@ class handler(BaseHTTPRequestHandler):
 
         # Endpoints PUBLICOS (sin auth, para la landing page)
         if path == '/api/productos-public':
-            prods = [{'id': d.id, **d.to_dict()} for d in db.collection('productos').where('activo', '==', True).order_by('categoria').get()]
+            prods = [{'id': d.id, **d.to_dict()} for d in db.collection('productos').get() if d.to_dict().get('activo', True)]
             return self._json(prods)
 
         if path == '/api/categorias-public':
-            cats = [{'id': d.id, **d.to_dict()} for d in db.collection('categorias').order_by('orden').get()]
+            cats = [{'id': d.id, **d.to_dict()} for d in db.collection('categorias').get()]
             return self._json(cats)
 
         self._json({'error': 'Not found'}, 404)

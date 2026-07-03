@@ -31,10 +31,9 @@ class handler(BaseHTTPRequestHandler):
 
     @property
     def _actual_path(self):
-        """En Vercel, el path real puede venir en x-forwarded-path o x-now-route."""
-        return (self.headers.get('x-forwarded-path', '') or 
-                self.headers.get('x-vercel-forwarded-path', '') or 
-                self.path)
+        """Extraer el path sin query string."""
+        from urllib.parse import urlparse
+        return urlparse(self.path).path
 
     def do_GET(self):
         path = self._actual_path

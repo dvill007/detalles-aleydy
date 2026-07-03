@@ -71,6 +71,55 @@
       background-size: 200% 200%;
       animation: shimmer 2s ease-in-out infinite;
     }
+
+    /* ── Modal de Producto ── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      background: white; border-radius: 1.5rem; max-width: 500px; width: 92%;
+      max-height: 90vh; overflow-y: auto; position: relative;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+      transform: translateY(20px); transition: transform 0.3s ease;
+    }
+    .modal-overlay.active .modal-box { transform: translateY(0); }
+    .modal-close {
+      position: absolute; top: 12px; right: 16px; z-index: 10;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: white; border: none; font-size: 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15); color: #666;
+      transition: all 0.2s;
+    }
+    .modal-close:hover { background: #fee2e2; color: #dc2626; }
+    .modal-img { width: 100%; max-height: 350px; object-fit: cover; border-radius: 1.5rem 1.5rem 0 0; }
+    .modal-body { padding: 1.5rem; }
+    .color-dot {
+      display: inline-block; width: 28px; height: 28px; border-radius: 50%;
+      border: 2px solid white; box-shadow: 0 0 0 2px #e5e7eb; cursor: pointer;
+      transition: transform 0.2s; margin: 0 4px;
+    }
+    .color-dot:hover { transform: scale(1.2); box-shadow: 0 0 0 3px #E91E8C; }
+    .modal-nav {
+      position: absolute; top: 45%; transform: translateY(-50%);
+      background: white; border-radius: 50%; width: 40px; height: 40px;
+      border: none; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      font-size: 18px; cursor: pointer; z-index: 11;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .modal-nav:hover { background: #E91E8C; color: white; }
+    .modal-prev { left: -16px; }
+    .modal-next { right: -16px; }
+    @media (max-width: 640px) {
+      .modal-nav { display: none; }
+      .modal-box { max-width: 95%; }
+    }
+
     @keyframes shimmer {
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -264,64 +313,176 @@
   </div>
 </nav>
 
-<!-- ═══════════ HERO ═══════════ -->
-<section id="dv-hero" class="relative overflow-hidden bg-gradient-to-br from-brand-bg via-white to-brand-light">
-  <div class="max-w-6xl mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center gap-10">
-    <div class="flex-1 text-center md:text-left">
-      <span class="inline-block bg-brand-light text-brand-primary px-4 py-1 rounded-full text-sm font-bold mb-4">
-        ✨ Delivery en Pucallpa
-      </span>
-      <h1 class="font-brand text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-4">
-        Detalles desde<br>el <span class="text-brand-primary">corazón</span> 🎀
-      </h1>
-      <p class="text-lg text-gray-600 mb-6 max-w-lg">
-        Ramos de rosas eternas, boxes personalizados y detalles únicos para esa persona especial. 
-        Tú eliges el color, nosotras lo creamos con amor.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-        <a id="dv-cta-hero" href="https://wa.me/51931699656" target="_blank"
-           class="bg-green-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-green-600 transition shadow-lg text-center">
-          🎁 Pide por WhatsApp
-        </a>
-        <a href="#productos" class="border-2 border-brand-primary text-brand-primary px-8 py-4 rounded-full text-lg font-bold hover:bg-brand-primary hover:text-white transition text-center">
-          Ver catálogo
-        </a>
-      </div>
-    </div>
-    <!-- HERO IMAGE: collage de 3 fotos reales -->
-    <div class="flex-1 flex justify-center">
-      <div class="relative w-80 h-80 md:w-96 md:h-96">
-        <!-- Foto principal centrada -->
-        <div class="absolute inset-4 rounded-3xl overflow-hidden shadow-2xl z-10">
-          <picture>
-            <source srcset="assets/images/ramo-cumpleanos.webp" type="image/webp">
-            <img src="assets/images/ramo-cumpleanos.jpg" alt="Ramo Cumpleaños Premium - Detalles Aleydy" 
-                 class="product-img" loading="eager">
-          </picture>
-        </div>
-        <!-- Foto secundaria flotante -->
-        <div class="absolute -top-2 -right-2 w-32 h-40 md:w-40 md:h-48 rounded-2xl overflow-hidden shadow-xl z-20 rotate-6 border-4 border-white">
-          <picture>
-            <source srcset="assets/images/ramo-mariposas.webp" type="image/webp">
-            <img src="assets/images/ramo-mariposas.jpg" alt="Ramo Mariposas LED" 
-                 class="product-img" loading="eager">
-          </picture>
-        </div>
-        <!-- Tercera foto flotante -->
-        <div class="absolute -bottom-2 -left-2 w-28 h-36 md:w-36 md:h-44 rounded-2xl overflow-hidden shadow-xl z-20 -rotate-3 border-4 border-white">
-          <picture>
-            <source srcset="assets/images/ramo-girasol.webp" type="image/webp">
-            <img src="assets/images/ramo-girasol.jpg" alt="Ramo de Girasol" 
-                 class="product-img" loading="eager">
-          </picture>
-        </div>
+<!-- ═══════════ HERO SLIDER ═══════════ -->
+<style>
+  .hero-slider { position: relative; overflow: hidden; height: 500px; }
+  @media (min-width: 768px) { .hero-slider { height: 580px; } }
+  .hero-slide {
+    position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-slide.active { opacity: 1; z-index: 1; }
+  .hero-slide-bg {
+    position: absolute; inset: 0; background-size: cover; background-position: center;
+    filter: brightness(0.45);
+  }
+  .hero-slide-content {
+    position: relative; z-index: 2; text-align: center; color: white;
+    max-width: 700px; padding: 0 1.5rem;
+    transform: translateY(20px); opacity: 0; transition: all 0.6s ease 0.2s;
+  }
+  .hero-slide.active .hero-slide-content { transform: translateY(0); opacity: 1; }
+  .hero-badge {
+    display: inline-block; background: rgba(233,30,140,0.85); color: white;
+    padding: 0.4rem 1.2rem; border-radius: 9999px; font-size: 0.85rem;
+    font-weight: 700; margin-bottom: 0.8rem; letter-spacing: 0.5px;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.4rem; font-weight: 700; line-height: 1.15; margin-bottom: 0.8rem;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+  @media (min-width: 768px) { .hero-title { font-size: 3.8rem; } }
+  .hero-subtitle { font-size: 1.1rem; opacity: 0.9; margin-bottom: 1.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .hero-dots {
+    position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+    z-index: 5; display: flex; gap: 10px;
+  }
+  .hero-dot {
+    width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.45);
+    border: none; cursor: pointer; transition: all 0.3s;
+  }
+  .hero-dot.active { background: #E91E8C; transform: scale(1.3); box-shadow: 0 0 8px rgba(233,30,140,0.5); }
+  .hero-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.2); color: white;
+    width: 44px; height: 44px; border-radius: 50%; font-size: 20px;
+    cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center;
+  }
+  .hero-arrow:hover { background: rgba(233,30,140,0.7); border-color: #E91E8C; }
+  .hero-arrow.prev { left: 16px; }
+  .hero-arrow.next { right: 16px; }
+  @media (max-width: 640px) {
+    .hero-slider { height: 460px; }
+    .hero-title { font-size: 1.8rem; }
+    .hero-arrow { width: 36px; height: 36px; font-size: 16px; }
+  }
+  .hero-gradient-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.01) 40%, rgba(0,0,0,0.4) 100%);
+  }
+</style>
+
+<section class="hero-slider" id="heroSlider">
+  <!-- Overlay gradient -->
+  <div class="hero-gradient-overlay"></div>
+
+  <!-- Slide 1 -->
+  <div class="hero-slide active" data-index="0">
+    <div class="hero-slide-bg" style="background-image:url('assets/images/ramo-cumpleanos.jpg')"></div>
+    <div class="hero-slide-content">
+      <span class="hero-badge">✨ Delivery en Pucallpa</span>
+      <h1 class="hero-title">Detalles desde el<br><span style="color:#FFD700">corazón</span> 🎀</h1>
+      <p class="hero-subtitle">Ramos de rosas eternas, boxes personalizados y detalles únicos para esa persona especial.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="https://wa.me/51931699656" target="_blank" class="dv-wa-click bg-green-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-green-600 transition shadow-lg text-center">🎁 Pide por WhatsApp</a>
+        <a href="#productos" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-white hover:text-brand-primary transition text-center backdrop-blur-sm">Ver catálogo</a>
       </div>
     </div>
   </div>
-  <!-- Decorative dots -->
-  <div class="absolute top-10 left-10 text-brand-light text-6xl opacity-30">•</div>
-  <div class="absolute bottom-10 right-10 text-brand-primary text-6xl opacity-20">•</div>
+
+  <!-- Slide 2 -->
+  <div class="hero-slide" data-index="1">
+    <div class="hero-slide-bg" style="background-image:url('assets/images/ramo-mariposas.jpg')"></div>
+    <div class="hero-slide-content">
+      <span class="hero-badge">🦋 Lo más pedido</span>
+      <h2 class="hero-title">Ramos <span style="color:#FFD700">Eternos</span></h2>
+      <p class="hero-subtitle">Mariposas LED, girasoles, rosas eternas y más. Tú eliges el color, nosotras lo creamos.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="https://wa.me/51931699656" target="_blank" class="dv-wa-click bg-green-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-green-600 transition shadow-lg text-center">🎁 Personaliza el tuyo</a>
+        <a href="#productos" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-white hover:text-brand-primary transition text-center backdrop-blur-sm">Ver ramos</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="hero-slide" data-index="2">
+    <div class="hero-slide-bg" style="background-image:url('assets/images/img_5ee90e4148f2.jpg')"></div>
+    <div class="hero-slide-content">
+      <span class="hero-badge">📦 Nuevo</span>
+      <h2 class="hero-title">Boxes <span style="color:#FFD700">Temáticos</span></h2>
+      <p class="hero-subtitle">Spiderman, Universitario, Alianza Lima... Snacks + peluches + decoración personalizada.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="https://wa.me/51931699656" target="_blank" class="dv-wa-click bg-green-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-green-600 transition shadow-lg text-center">🎁 Pide tu box</a>
+        <a href="#productos" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-white hover:text-brand-primary transition text-center backdrop-blur-sm">Ver boxes</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4 -->
+  <div class="hero-slide" data-index="3">
+    <div class="hero-slide-bg" style="background-image:url('assets/images/ramo-real-madrid.jpg')"></div>
+    <div class="hero-slide-content">
+      <span class="hero-badge">⚽ Fanáticos</span>
+      <h2 class="hero-title">Detalles <span style="color:#FFD700">Futboleros</span></h2>
+      <p class="hero-subtitle">Ramo Real Madrid y más sorpresas para el hincha. Porque el fútbol también se celebra con estilo.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="https://wa.me/51931699656" target="_blank" class="dv-wa-click bg-green-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-green-600 transition shadow-lg text-center">🎁 Pedir ahora</a>
+        <a href="#productos" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-white hover:text-brand-primary transition text-center backdrop-blur-sm">Ver catálogo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation arrows -->
+  <button class="hero-arrow prev" onclick="heroPrev()" aria-label="Anterior">&#8249;</button>
+  <button class="hero-arrow next" onclick="heroNext()" aria-label="Siguiente">&#8250;</button>
+
+  <!-- Dots -->
+  <div class="hero-dots" id="heroDots">
+    <button class="hero-dot active" onclick="heroGoTo(0)"></button>
+    <button class="hero-dot" onclick="heroGoTo(1)"></button>
+    <button class="hero-dot" onclick="heroGoTo(2)"></button>
+    <button class="hero-dot" onclick="heroGoTo(3)"></button>
+  </div>
 </section>
+
+<script>
+let heroCurrent = 0;
+const heroTotal = 4;
+let heroInterval;
+
+function heroGoTo(index) {
+  document.querySelectorAll('.hero-slide').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelectorAll('.hero-dot').forEach(function(d) { d.classList.remove('active'); });
+  document.querySelector('.hero-slide[data-index="' + index + '"]').classList.add('active');
+  document.querySelectorAll('.hero-dot')[index].classList.add('active');
+  heroCurrent = index;
+}
+
+function heroNext() { heroGoTo((heroCurrent + 1) % heroTotal); resetHeroTimer(); }
+function heroPrev() { heroGoTo((heroCurrent - 1 + heroTotal) % heroTotal); resetHeroTimer(); }
+
+function resetHeroTimer() {
+  clearInterval(heroInterval);
+  heroInterval = setInterval(heroNext, 5000);
+}
+
+// Pause on hover
+document.getElementById('heroSlider').addEventListener('mouseenter', function() { clearInterval(heroInterval); });
+document.getElementById('heroSlider').addEventListener('mouseleave', function() { heroInterval = setInterval(heroNext, 5000); });
+
+// Touch swipe
+var touchStartX = 0;
+document.getElementById('heroSlider').addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+document.getElementById('heroSlider').addEventListener('touchend', function(e) {
+  var diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) { diff > 0 ? heroNext() : heroPrev(); }
+});
+
+// Start
+heroInterval = setInterval(heroNext, 5000);
+</script>
 
 <!-- ═══════════ FEATURES ═══════════ -->
 <section id="dv-features" class="py-12 bg-white">
@@ -337,25 +498,19 @@
 
       <!-- Ramo Básico -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-basico.webp" type="image/webp"><img src="assets/images/ramo-basico.jpg" alt="Ramo Básico" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-basico.webp" type="image/webp"><img src="assets/images/ramo-basico.jpg" alt="Ramo Básico" class="product-img cursor-pointer" onclick="openModal(0)" loading="lazy"></picture></div>
         <div class="p-5"><span class="text-brand-primary text-sm font-bold">🌟 Más vendido</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Básico</h3><p class="text-gray-500 text-sm mt-1">7 rosas eternas + dedicatoria + mariposa</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/45</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Básico%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Ramo Eterno -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 placeholder-card flex items-center justify-center"><div class="text-center"><span class="text-5xl block mb-2">📸</span><span class="text-brand-primary text-sm font-medium bg-white/70 px-3 py-1 rounded-full">Foto próximamente</span></div></div>
-        <div class="p-5"><h3 class="font-brand text-lg font-bold mt-1">Ramo Eterno</h3><p class="text-gray-500 text-sm mt-1">10 rosas eternas + dedicatoria + lazo</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/55</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Eterno%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
 
       <!-- Ramo 3 Rosas LOVE -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_14a033633021.webp" type="image/webp"><img src="assets/images/img_14a033633021.jpg" alt="Ramo 3 Rosas LOVE" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_14a033633021.webp" type="image/webp"><img src="assets/images/img_14a033633021.jpg" alt="Ramo 3 Rosas LOVE" class="product-img cursor-pointer" onclick="openModal(1)" loading="lazy"></picture></div>
         <div class="p-5"><span class="text-brand-primary text-sm font-bold">💕 Romántico</span><h3 class="font-brand text-lg font-bold mt-1">Ramo 3 Rosas LOVE</h3><p class="text-gray-500 text-sm mt-1">3 rosas fucsia + papel dorado + mariposa</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/20</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%203%20Rosas%20LOVE%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
 
       <!-- Ramo Premium Cumpleaños -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-cumpleanos.webp" type="image/webp"><img src="assets/images/ramo-cumpleanos.jpg" alt="Ramo Cumpleaños Premium" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-cumpleanos.webp" type="image/webp"><img src="assets/images/ramo-cumpleanos.jpg" alt="Ramo Cumpleaños Premium" class="product-img cursor-pointer" onclick="openModal(2)" loading="lazy"></picture></div>
         <div class="p-5"><span class="text-brand-primary text-sm font-bold">👑 Premium</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Premium Cumpleaños</h3><p class="text-gray-500 text-sm mt-1">50 rosas eternas + corona dorada + lazo</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/280</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Premium%20Cumpleaños%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
     </div>
@@ -366,31 +521,31 @@
 
       <!-- Ramo Mariposas LED -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-mariposas.webp" type="image/webp"><img src="assets/images/ramo-mariposas.jpg" alt="Ramo Mariposas LED" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-mariposas.webp" type="image/webp"><img src="assets/images/ramo-mariposas.jpg" alt="Ramo Mariposas LED" class="product-img cursor-pointer" onclick="openModal(3)" loading="lazy"></picture></div>
         <div class="p-5"><span class="text-brand-primary text-sm font-bold">✨ Popular</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Mariposas LED</h3><p class="text-gray-500 text-sm mt-1">20 mariposas + luces LED + dedicatoria</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/55</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Mariposas%20LED%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
 
       <!-- Ramo Mariposas Azules -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_b2d6ada4fa56.webp" type="image/webp"><img src="assets/images/img_b2d6ada4fa56.jpg" alt="Ramo Mariposas Azules" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_b2d6ada4fa56.webp" type="image/webp"><img src="assets/images/img_b2d6ada4fa56.jpg" alt="Ramo Mariposas Azules" class="product-img cursor-pointer" onclick="openModal(4)" loading="lazy"></picture></div>
         <div class="p-5"><h3 class="font-brand text-lg font-bold mt-1">Ramo Mariposas Azules</h3><p class="text-gray-500 text-sm mt-1">Mariposas azul brillante + celofán azul/negro</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/45</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Mariposas%20Azules%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
 
       <!-- Ramo Mariposas Fucsia LED -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_c0735411f302.webp" type="image/webp"><img src="assets/images/img_c0735411f302.jpg" alt="Ramo Mariposas Fucsia LED" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_c0735411f302.webp" type="image/webp"><img src="assets/images/img_c0735411f302.jpg" alt="Ramo Mariposas Fucsia LED" class="product-img cursor-pointer" onclick="openModal(5)" loading="lazy"></picture></div>
         <div class="p-5"><span class="text-brand-primary text-sm font-bold">💡 Iluminado</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Mariposas Fucsia LED</h3><p class="text-gray-500 text-sm mt-1">Mariposas fucsia iluminadas + envoltura rosa</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/45</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Mariposas%20Fucsia%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
 
       <!-- Ramo Girasol -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-girasol.webp" type="image/webp"><img src="assets/images/ramo-girasol.jpg" alt="Ramo de Girasol" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-girasol.webp" type="image/webp"><img src="assets/images/ramo-girasol.jpg" alt="Ramo de Girasol" class="product-img cursor-pointer" onclick="openModal(6)" loading="lazy"></picture></div>
         <div class="p-5"><h3 class="font-brand text-lg font-bold mt-1">Ramo de Girasol</h3><p class="text-gray-500 text-sm mt-1">1 girasol eterno + dedicatoria + mariposa</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/20</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Girasol%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
 
       <!-- Ramo Flores de Peluche -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_a34b0dfbc225.webp" type="image/webp"><img src="assets/images/img_a34b0dfbc225.jpg" alt="Ramo Flores de Peluche" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_a34b0dfbc225.webp" type="image/webp"><img src="assets/images/img_a34b0dfbc225.jpg" alt="Ramo Flores de Peluche" class="product-img cursor-pointer" onclick="openModal(7)" loading="lazy"></picture></div>
         <div class="p-5"><span class="text-brand-primary text-sm font-bold">🧸 Adorable</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Flores de Peluche</h3><p class="text-gray-500 text-sm mt-1">Flores de felpa suave + envoltura adorable</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/25</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Flores%20Peluche%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
     </div>
@@ -401,107 +556,56 @@
 
       <!-- Ramo Hello Kitty -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_d688f18f7d3a.webp" type="image/webp"><img src="assets/images/img_d688f18f7d3a.jpg" alt="Ramo Hello Kitty" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_d688f18f7d3a.webp" type="image/webp"><img src="assets/images/img_d688f18f7d3a.jpg" alt="Ramo Hello Kitty" class="product-img cursor-pointer" onclick="openModal(8)" loading="lazy"></picture></div>
         <div class="p-5"><span class="text-brand-primary text-sm font-bold">🐱 Destacado</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Hello Kitty</h3><p class="text-gray-500 text-sm mt-1">Peluche HK + flores rosas + globo + dulce</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/65</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Hello%20Kitty%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
 
       <!-- Ramo Hello Kitty Love -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_ed3ccfaedd57.webp" type="image/webp"><img src="assets/images/img_ed3ccfaedd57.jpg" alt="Ramo Hello Kitty Love" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_ed3ccfaedd57.webp" type="image/webp"><img src="assets/images/img_ed3ccfaedd57.jpg" alt="Ramo Hello Kitty Love" class="product-img cursor-pointer" onclick="openModal(9)" loading="lazy"></picture></div>
         <div class="p-5"><span class="text-brand-primary text-sm font-bold">💖 San Valentín</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Hello Kitty Love</h3><p class="text-gray-500 text-sm mt-1">HK + rosas rosa/rojo San Valentín</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/50</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Hello%20Kitty%20Love%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
 
       <!-- Ramo Personalizado con Fotos -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_784211ce3e84.webp" type="image/webp"><img src="assets/images/img_784211ce3e84.jpg" alt="Ramo Personalizado con Fotos" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_784211ce3e84.webp" type="image/webp"><img src="assets/images/img_784211ce3e84.jpg" alt="Ramo Personalizado con Fotos" class="product-img cursor-pointer" onclick="openModal(10)" loading="lazy"></picture></div>
         <div class="p-5"><span class="text-brand-primary text-sm font-bold">📸 Único</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Personalizado Fotos</h3><p class="text-gray-500 text-sm mt-1">2 rosas + fotos impresas + tarjeta</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/25</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Personalizado%20con%20Fotos%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
 
       <!-- Ramo Día de la Madre -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_eb33090a23c8.webp" type="image/webp"><img src="assets/images/img_eb33090a23c8.jpg" alt="Ramo Día de la Madre" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_eb33090a23c8.webp" type="image/webp"><img src="assets/images/img_eb33090a23c8.jpg" alt="Ramo Día de la Madre" class="product-img cursor-pointer" onclick="openModal(11)" loading="lazy"></picture></div>
         <div class="p-5"><span class="text-brand-primary text-sm font-bold">👩‍👧 Mamá</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Día de la Madre</h3><p class="text-gray-500 text-sm mt-1">Flores fucsia/blanco + tarjeta especial</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/45</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Día%20de%20la%20Madre%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
 
       <!-- Ramo I LOVE -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_0a93e11dc52e.webp" type="image/webp"><img src="assets/images/img_0a93e11dc52e.jpg" alt="Ramo I LOVE" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_0a93e11dc52e.webp" type="image/webp"><img src="assets/images/img_0a93e11dc52e.jpg" alt="Ramo I LOVE" class="product-img cursor-pointer" onclick="openModal(12)" loading="lazy"></picture></div>
         <div class="p-5"><h3 class="font-brand text-lg font-bold mt-1">Ramo I LOVE</h3><p class="text-gray-500 text-sm mt-1">Flores chenilla rosa/morado/amarillo + LOVE</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/30</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20I%20LOVE%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
 
       <!-- Ramo Real Madrid -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-real-madrid.webp" type="image/webp"><img src="assets/images/ramo-real-madrid.jpg" alt="Ramo Real Madrid" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-real-madrid.webp" type="image/webp"><img src="assets/images/ramo-real-madrid.jpg" alt="Ramo Real Madrid" class="product-img cursor-pointer" onclick="openModal(13)" loading="lazy"></picture></div>
         <div class="p-5"><span class="text-brand-primary text-sm font-bold">⚽ Fútbol</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Real Madrid</h3><p class="text-gray-500 text-sm mt-1">Rosas azul/crema + emblema RM + dedicatoria</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/55</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Real%20Madrid%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Tulipanes de Limpiapipas -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 placeholder-card flex items-center justify-center"><div class="text-center"><span class="text-5xl block mb-2">📸</span><span class="text-brand-primary text-sm font-medium bg-white/70 px-3 py-1 rounded-full">Foto próximamente</span></div></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">🌷 Artesanal</span><h3 class="font-brand text-lg font-bold mt-1">Tulipanes de Limpiapipas</h3><p class="text-gray-500 text-sm mt-1">Tulipanes hechos a mano + envoltura decorada</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/25</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20los%20Tulipanes%20de%20Limpiapipas%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-    </div>
-
-    <!-- 📦 BOXES TEMÁTICOS -->
-    <h3 class="font-brand text-2xl font-bold text-center mb-6 text-brand-primary">📦 Boxes Temáticos</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-
-      <!-- Box Hot Wheels -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 placeholder-card flex items-center justify-center"><div class="text-center"><span class="text-5xl block mb-2">📸</span><span class="text-brand-primary text-sm font-medium bg-white/70 px-3 py-1 rounded-full">Foto próximamente</span></div></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">🏎️ Temático</span><h3 class="font-brand text-lg font-bold mt-1">Box Hot Wheels</h3><p class="text-gray-500 text-sm mt-1">2 carritos + 2 sublimes + caja decorada</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/60</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Box%20Hot%20Wheels%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
 
       <!-- Box Spiderman -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_5ee90e4148f2.webp" type="image/webp"><img src="assets/images/img_5ee90e4148f2.jpg" alt="Box Spiderman" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_5ee90e4148f2.webp" type="image/webp"><img src="assets/images/img_5ee90e4148f2.jpg" alt="Box Spiderman" class="product-img cursor-pointer" onclick="openModal(14)" loading="lazy"></picture></div>
         <div class="p-5"><span class="text-brand-primary text-sm font-bold">🕷️ Nuevo</span><h3 class="font-brand text-lg font-bold mt-1">Box Spiderman</h3><p class="text-gray-500 text-sm mt-1">Peluche + snacks + globo corazón + mensaje</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/60</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Box%20Spiderman%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
 
       <!-- Box Universitario -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_426a4ffe063d.webp" type="image/webp"><img src="assets/images/img_426a4ffe063d.jpg" alt="Box Universitario" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_426a4ffe063d.webp" type="image/webp"><img src="assets/images/img_426a4ffe063d.jpg" alt="Box Universitario" class="product-img cursor-pointer" onclick="openModal(15)" loading="lazy"></picture></div>
         <div class="p-5"><span class="text-brand-primary text-sm font-bold">🟡🔴 Crema</span><h3 class="font-brand text-lg font-bold mt-1">Box Universitario</h3><p class="text-gray-500 text-sm mt-1">Snacks + osito + decoración crema</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/50</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Box%20Universitario%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
 
       <!-- Box Alianza Lima -->
       <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_04f71873e24a.webp" type="image/webp"><img src="assets/images/img_04f71873e24a.jpg" alt="Box Alianza Lima" class="product-img" loading="lazy"></picture></div>
+        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_04f71873e24a.webp" type="image/webp"><img src="assets/images/img_04f71873e24a.jpg" alt="Box Alianza Lima" class="product-img cursor-pointer" onclick="openModal(16)" loading="lazy"></picture></div>
         <div class="p-5"><span class="text-brand-primary text-sm font-bold">🔵⚪ Blanquiazul</span><h3 class="font-brand text-lg font-bold mt-1">Box Alianza Lima</h3><p class="text-gray-500 text-sm mt-1">Snacks + decoración azul/blanco</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/60</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Box%20Alianza%20Lima%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-    </div>
-
-    <!-- 🖼️ CUADROS -->
-    <h3 class="font-brand text-2xl font-bold text-center mb-6 text-brand-primary">🖼️ Cuadros Personalizados</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-
-      <!-- Cuadro Mundial -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 placeholder-card flex items-center justify-center"><div class="text-center"><span class="text-5xl block mb-2">📸</span><span class="text-brand-primary text-sm font-medium bg-white/70 px-3 py-1 rounded-full">Foto próximamente</span></div></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">⚽ Fútbol</span><h3 class="font-brand text-lg font-bold mt-1">Cuadro Mundial</h3><p class="text-gray-500 text-sm mt-1">Decorativo temático fútbol</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/50</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Cuadro%20Mundial%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Cuadro Personalizado -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 placeholder-card flex items-center justify-center"><div class="text-center"><span class="text-5xl block mb-2">📸</span><span class="text-brand-primary text-sm font-medium bg-white/70 px-3 py-1 rounded-full">Foto próximamente</span></div></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">🎨 Único</span><h3 class="font-brand text-lg font-bold mt-1">Cuadro Personalizado</h3><p class="text-gray-500 text-sm mt-1">Foto/diseño a elección del cliente</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/45</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Cuadro%20Personalizado%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Cuadro Premium -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 placeholder-card flex items-center justify-center"><div class="text-center"><span class="text-5xl block mb-2">📸</span><span class="text-brand-primary text-sm font-medium bg-white/70 px-3 py-1 rounded-full">Foto próximamente</span></div></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">💎 Premium</span><h3 class="font-brand text-lg font-bold mt-1">Cuadro Premium</h3><p class="text-gray-500 text-sm mt-1">Marco + diseño elaborado + dedicatoria</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/50</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Cuadro%20Premium%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-    </div>
-
-    <!-- 🎁 ECONÓMICOS -->
-    <h3 class="font-brand text-2xl font-bold text-center mb-6 text-brand-primary">🎁 Económicos</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-
-      <!-- Mini Detalle -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 placeholder-card flex items-center justify-center"><div class="text-center"><span class="text-5xl block mb-2">📸</span><span class="text-brand-primary text-sm font-medium bg-white/70 px-3 py-1 rounded-full">Foto próximamente</span></div></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">🌹 Económico</span><h3 class="font-brand text-lg font-bold mt-1">Mini Detalle</h3><p class="text-gray-500 text-sm mt-1">1 rosa eterna + dedicatoria</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/15</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Mini%20Detalle%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
       </div>
     </div>
 
@@ -509,7 +613,7 @@
     <div class="text-center mt-10">
       <a href="https://wa.me/51931699656?text=Hola,%20quiero%20ver%20el%20catálogo%20completo%20de%20Detalles%20Aleydy%20🎀" target="_blank"
          class="inline-block border-2 border-brand-primary text-brand-primary px-8 py-3 rounded-full text-lg font-bold hover:bg-brand-primary hover:text-white transition">
-        📋 Ver catálogo completo (24+ productos)
+        📋 Ver catálogo completo (17 productos)
       </a>
     </div>
   </div>
@@ -829,26 +933,130 @@
 </section>
 
 <!-- ═══════════ COMO PEDIR ═══════════ -->
-<section id="como-pedir" class="py-16 bg-white">
-  <div class="max-w-4xl mx-auto px-4 text-center">
-    <h2 class="font-brand text-3xl md:text-4xl font-bold mb-10">¿Cómo pedir?</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div>
-        <span class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-light text-brand-primary text-2xl font-bold mb-4">1</span>
-        <h3 class="font-brand text-lg font-bold mb-2">Elige tu detalle</h3>
-        <p class="text-gray-500 text-sm">Explora nuestro catálogo y elige el ramo o box que más te guste</p>
+<section id="como-pedir" class="py-20 bg-gradient-to-b from-white to-brand-light/20 relative overflow-hidden">
+
+  <!-- Decoración de fondo -->
+  <div class="absolute top-0 left-0 w-64 h-64 bg-brand-primary/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+  <div class="absolute bottom-0 right-0 w-80 h-80 bg-gold/10 rounded-full translate-x-1/3 translate-y-1/3"></div>
+
+  <div class="max-w-5xl mx-auto px-4 relative z-10">
+    
+    <!-- Encabezado -->
+    <div class="text-center mb-14">
+      <span class="inline-block bg-brand-light text-brand-primary text-sm font-bold px-4 py-1.5 rounded-full mb-4 tracking-wide uppercase">Fácil y rápido</span>
+      <h2 class="font-brand text-3xl md:text-5xl font-bold mb-3">¿Cómo pedir?</h2>
+      <p class="text-gray-500 text-lg max-w-xl mx-auto">Cuatro pasos y tu detalle está en camino. Así de simple.</p>
+    </div>
+
+    <!-- Timeline Desktop -->
+    <div class="hidden md:block">
+      <!-- Línea conectora -->
+      <div class="relative mb-10">
+        <div class="absolute top-16 left-[12.5%] right-[12.5%] h-1 bg-gradient-to-r from-brand-primary via-gold to-brand-primary rounded-full"></div>
       </div>
-      <div>
-        <span class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-light text-brand-primary text-2xl font-bold mb-4">2</span>
-        <h3 class="font-brand text-lg font-bold mb-2">Elige el color</h3>
-        <p class="text-gray-500 text-sm">Dinos el color que prefieres y personalizamos tu detalle</p>
-      </div>
-      <div>
-        <span class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-light text-brand-primary text-2xl font-bold mb-4">3</span>
-        <h3 class="font-brand text-lg font-bold mb-2">Recíbelo</h3>
-        <p class="text-gray-500 text-sm">Te lo llevamos a donde estés en Pucallpa. ¡Listo para sorprender!</p>
+      <!-- Pasos -->
+      <div class="grid grid-cols-4 gap-4 relative">
+        
+        <!-- Paso 1 -->
+        <div class="text-center group">
+          <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-brand-primary to-pink-400 text-white shadow-lg shadow-brand-primary/20 mb-5 group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
+            <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 9a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <span class="absolute top-0 right-3 text-7xl font-black text-brand-primary/8 select-none">01</span>
+          <h3 class="font-brand text-lg font-bold mb-2 relative">Elige tu detalle</h3>
+          <p class="text-gray-500 text-sm leading-relaxed px-2">Explora nuestro catálogo y escoge el ramo o box que más te guste</p>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="text-center group">
+          <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-gold to-yellow-500 text-white shadow-lg shadow-gold/20 mb-5 group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
+            <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+          </div>
+          <span class="absolute top-0 right-3 text-7xl font-black text-gold/10 select-none">02</span>
+          <h3 class="font-brand text-lg font-bold mb-2 relative">Personaliza</h3>
+          <p class="text-gray-500 text-sm leading-relaxed px-2">Dinos tu color favorito y cualquier detalle especial que quieras agregar</p>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="text-center group">
+          <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-brand-primary to-pink-400 text-white shadow-lg shadow-brand-primary/20 mb-5 group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
+            <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+          </div>
+          <span class="absolute top-0 right-3 text-7xl font-black text-brand-primary/8 select-none">03</span>
+          <h3 class="font-brand text-lg font-bold mb-2 relative">Paga fácil</h3>
+          <p class="text-gray-500 text-sm leading-relaxed px-2">Yape, Plin o efectivo. Pago seguro al recibir tu detalle</p>
+        </div>
+
+        <!-- Paso 4 -->
+        <div class="text-center group">
+          <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-400 text-white shadow-lg shadow-green-500/20 mb-5 group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
+            <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <span class="absolute top-0 right-3 text-7xl font-black text-green-500/8 select-none">04</span>
+          <h3 class="font-brand text-lg font-bold mb-2 relative">¡Recíbelo!</h3>
+          <p class="text-gray-500 text-sm leading-relaxed px-2">Delivery a todo Pucallpa en ~1 hora. Llega listo para sorprender 🎀</p>
+        </div>
+
       </div>
     </div>
+
+    <!-- Timeline Mobile -->
+    <div class="md:hidden space-y-0">
+      <div class="relative pl-14 space-y-10">
+        <!-- Línea vertical -->
+        <div class="absolute left-7 top-4 bottom-4 w-0.5 bg-gradient-to-b from-brand-primary via-gold to-green-500 rounded-full"></div>
+        
+        <!-- Paso 1 -->
+        <div class="relative">
+          <div class="absolute -left-[3.25rem] top-1 w-12 h-12 rounded-xl bg-gradient-to-br from-brand-primary to-pink-400 text-white flex items-center justify-center shadow-lg shadow-brand-primary/20">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 9a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <span class="text-xs font-black text-brand-primary/30 uppercase tracking-widest mb-1 block">Paso 1</span>
+          <h3 class="font-brand text-lg font-bold">Elige tu detalle</h3>
+          <p class="text-gray-500 text-sm">Explora nuestro catálogo y escoge el ramo o box que más te guste</p>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="relative">
+          <div class="absolute -left-[3.25rem] top-1 w-12 h-12 rounded-xl bg-gradient-to-br from-gold to-yellow-500 text-white flex items-center justify-center shadow-lg shadow-gold/20">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+          </div>
+          <span class="text-xs font-black text-gold/40 uppercase tracking-widest mb-1 block">Paso 2</span>
+          <h3 class="font-brand text-lg font-bold">Personaliza</h3>
+          <p class="text-gray-500 text-sm">Dinos tu color favorito y cualquier detalle especial que quieras agregar</p>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="relative">
+          <div class="absolute -left-[3.25rem] top-1 w-12 h-12 rounded-xl bg-gradient-to-br from-brand-primary to-pink-400 text-white flex items-center justify-center shadow-lg shadow-brand-primary/20">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+          </div>
+          <span class="text-xs font-black text-brand-primary/30 uppercase tracking-widest mb-1 block">Paso 3</span>
+          <h3 class="font-brand text-lg font-bold">Paga fácil</h3>
+          <p class="text-gray-500 text-sm">Yape, Plin o efectivo. Pago seguro al recibir tu detalle</p>
+        </div>
+
+        <!-- Paso 4 -->
+        <div class="relative">
+          <div class="absolute -left-[3.25rem] top-1 w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-400 text-white flex items-center justify-center shadow-lg shadow-green-500/20">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <span class="text-xs font-black text-green-500/40 uppercase tracking-widest mb-1 block">Paso 4</span>
+          <h3 class="font-brand text-lg font-bold">¡Recíbelo!</h3>
+          <p class="text-gray-500 text-sm">Delivery a todo Pucallpa en ~1 hora. Llega listo para sorprender 🎀</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-14">
+      <a href="https://wa.me/51931699656" target="_blank"
+         class="dv-wa-click inline-flex items-center gap-3 bg-green-500 text-white px-10 py-5 rounded-full text-xl font-bold hover:bg-green-600 hover:scale-105 transition-all shadow-2xl shadow-green-500/30">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Pedir por WhatsApp
+      </a>
+    </div>
+
   </div>
 </section>
 
@@ -961,6 +1169,95 @@
    class="whatsapp-float fixed bottom-6 right-6 z-50 bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:bg-green-600 transition">
   💬
 </a>
+
+
+<!-- ═══════════ MODAL DE PRODUCTO ═══════════ -->
+<div class="modal-overlay" id="productModal" onclick="closeModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()" title="Cerrar">&times;</button>
+    <button class="modal-nav modal-prev" onclick="navigateModal(-1)">&#8249;</button>
+    <button class="modal-nav modal-next" onclick="navigateModal(1)">&#8250;</button>
+    <img id="modalImg" class="modal-img" src="" alt="">
+    <div class="modal-body">
+      <span id="modalBadge" class="text-brand-primary text-sm font-bold"></span>
+      <h2 id="modalTitle" class="font-brand text-2xl font-bold mt-1"></h2>
+      <p id="modalDesc" class="text-gray-500 text-sm mt-2"></p>
+      <div class="flex items-center gap-3 mt-4">
+        <span id="modalPrice" class="text-3xl font-bold text-brand-primary"></span>
+      </div>
+      <div class="mt-4">
+        <p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Colores disponibles</p>
+        <div id="modalColors" class="flex flex-wrap gap-2"></div>
+      </div>
+      <a id="modalWhatsApp" href="#" target="_blank"
+         class="dv-wa-click mt-6 flex items-center justify-center gap-2 bg-green-500 text-white px-6 py-4 rounded-full text-lg font-bold hover:bg-green-600 transition shadow-lg">
+        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Pedir por WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<script>
+const productos = [
+  { id:"ramo-basico", nombre:"Ramo Básico", precio:"S/45", desc:"7 rosas eternas + dedicatoria + mariposa", img:"assets/images/ramo-basico.jpg", badge:"🌟 Más vendido", colores:["#E91E8C","#FFFFFF","#FFD700","#C2185B","#F48FB1"], wa:"Hola, quiero el Ramo Básico 🎀" },
+  { id:"ramo-3-rosas", nombre:"Ramo 3 Rosas LOVE", precio:"S/20", desc:"3 rosas fucsia + papel dorado + mariposa", img:"assets/images/img_14a033633021.jpg", badge:"💕 Romántico", colores:["#E91E8C","#C2185B","#FFD700"], wa:"Hola, quiero el Ramo 3 Rosas LOVE 🎀" },
+  { id:"ramo-cumpleanos", nombre:"Ramo Premium Cumpleaños", precio:"S/280", desc:"50 rosas eternas + corona dorada + lazo", img:"assets/images/ramo-cumpleanos.jpg", badge:"👑 Premium", colores:["#E91E8C","#FFD700","#FFFFFF","#F48FB1","#4A148C"], wa:"Hola, quiero el Ramo Premium Cumpleaños 🎀" },
+  { id:"ramo-mariposas", nombre:"Ramo Mariposas LED", precio:"S/55", desc:"20 mariposas + luces LED + dedicatoria", img:"assets/images/ramo-mariposas.jpg", badge:"✨ Popular", colores:["#E91E8C","#9C27B0","#FFD700","#FFFFFF"], wa:"Hola, quiero el Ramo Mariposas LED 🎀" },
+  { id:"ramo-mariposas-azul", nombre:"Ramo Mariposas Azules", precio:"S/45", desc:"Mariposas azul brillante + celofán azul/negro", img:"assets/images/img_b2d6ada4fa56.jpg", badge:"", colores:["#1565C0","#0D47A1","#000000","#42A5F5"], wa:"Hola, quiero el Ramo Mariposas Azules 🎀" },
+  { id:"ramo-mariposas-fucsia", nombre:"Ramo Mariposas Fucsia LED", precio:"S/45", desc:"Mariposas fucsia iluminadas + envoltura rosa", img:"assets/images/img_c0735411f302.jpg", badge:"💡 Iluminado", colores:["#E91E8C","#C2185B","#FFD700","#F48FB1"], wa:"Hola, quiero el Ramo Mariposas Fucsia 🎀" },
+  { id:"ramo-girasol", nombre:"Ramo de Girasol", precio:"S/20", desc:"1 girasol eterno + dedicatoria + mariposa", img:"assets/images/ramo-girasol.jpg", badge:"", colores:["#FFD700","#FF8F00","#FFFFFF","#795548"], wa:"Hola, quiero el Ramo Girasol 🎀" },
+  { id:"ramo-flores-peluche", nombre:"Ramo Flores de Peluche", precio:"S/25", desc:"Flores de felpa suave + envoltura adorable", img:"assets/images/img_a34b0dfbc225.jpg", badge:"🧸 Adorable", colores:["#F48FB1","#CE93D8","#FFD700","#FFFFFF"], wa:"Hola, quiero el Ramo Flores de Peluche 🎀" },
+  { id:"ramo-hellokitty", nombre:"Ramo Hello Kitty", precio:"S/65", desc:"Peluche HK + flores rosas + globo + dulce", img:"assets/images/img_d688f18f7d3a.jpg", badge:"🐱 Destacado", colores:["#E91E8C","#FFFFFF","#F48FB1","#FFD700"], wa:"Hola, quiero el Ramo Hello Kitty 🎀" },
+  { id:"ramo-hellokitty-love", nombre:"Ramo Hello Kitty Love", precio:"S/50", desc:"HK + rosas rosa/rojo San Valentín", img:"assets/images/img_ed3ccfaedd57.jpg", badge:"💖 San Valentín", colores:["#E91E8C","#C2185B","#FFFFFF","#FFD700"], wa:"Hola, quiero el Ramo Hello Kitty Love 🎀" },
+  { id:"ramo-fotos", nombre:"Ramo Personalizado Fotos", precio:"S/25", desc:"2 rosas + fotos impresas + tarjeta", img:"assets/images/img_784211ce3e84.jpg", badge:"📸 Único", colores:["#E91E8C","#FFFFFF","#FFD700","#9C27B0"], wa:"Hola, quiero el Ramo Personalizado con Fotos 🎀" },
+  { id:"ramo-dia-madre", nombre:"Ramo Día de la Madre", precio:"S/45", desc:"Flores fucsia/blanco + tarjeta especial", img:"assets/images/img_eb33090a23c8.jpg", badge:"👩‍👧 Mamá", colores:["#E91E8C","#FFFFFF","#FFD700","#F48FB1"], wa:"Hola, quiero el Ramo Día de la Madre 🎀" },
+  { id:"ramo-ilove", nombre:"Ramo I LOVE", precio:"S/30", desc:"Flores chenilla rosa/morado/amarillo + LOVE", img:"assets/images/img_0a93e11dc52e.jpg", badge:"", colores:["#E91E8C","#9C27B0","#FFD700","#FFFFFF"], wa:"Hola, quiero el Ramo I LOVE 🎀" },
+  { id:"ramo-real-madrid", nombre:"Ramo Real Madrid", precio:"S/55", desc:"Rosas azul/crema + emblema RM + dedicatoria", img:"assets/images/ramo-real-madrid.jpg", badge:"⚽ Fútbol", colores:["#1565C0","#FFD700","#FFFFFF","#E91E8C"], wa:"Hola, quiero el Ramo Real Madrid 🎀" },
+  { id:"box-spiderman", nombre:"Box Spiderman", precio:"S/60", desc:"Peluche + snacks + globo corazón + mensaje", img:"assets/images/img_5ee90e4148f2.jpg", badge:"🕷️ Nuevo", colores:["#E91E8C","#1565C0","#FFFFFF","#C2185B"], wa:"Hola, quiero el Box Spiderman 🎀" },
+  { id:"box-universitario", nombre:"Box Universitario", precio:"S/50", desc:"Snacks + osito + decoración crema", img:"assets/images/img_426a4ffe063d.jpg", badge:"🟡🔴 Crema", colores:["#FFD700","#C2185B","#FFFFFF","#000000"], wa:"Hola, quiero el Box Universitario 🎀" },
+  { id:"box-alianza", nombre:"Box Alianza Lima", precio:"S/60", desc:"Snacks + decoración azul/blanco", img:"assets/images/img_04f71873e24a.jpg", badge:"🔵⚪ Blanquiazul", colores:["#1565C0","#FFFFFF","#0D47A1","#FFD700"], wa:"Hola, quiero el Box Alianza Lima 🎀" }
+];
+
+let currentProduct = 0;
+
+function openModal(index) {
+  currentProduct = index;
+  const p = productos[index];
+  document.getElementById('modalImg').src = p.img;
+  document.getElementById('modalImg').alt = p.nombre;
+  document.getElementById('modalTitle').textContent = p.nombre;
+  document.getElementById('modalPrice').textContent = p.precio;
+  document.getElementById('modalDesc').textContent = p.desc;
+  const badge = document.getElementById('modalBadge');
+  badge.textContent = p.badge || '';
+  badge.style.display = p.badge ? '' : 'none';
+  document.getElementById('modalWhatsApp').href = 'https://wa.me/51931699656?text=' + encodeURIComponent(p.wa);
+  document.getElementById('modalColors').innerHTML = p.colores.map(function(c) { return '<span class="color-dot" style="background:'+c+'"></span>'; }).join('');
+  document.getElementById('productModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  if (typeof gtag !== 'undefined') gtag('event', 'view_item', { items: [{ item_name: p.nombre, price: p.precio }] });
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('productModal')) return;
+  document.getElementById('productModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function navigateModal(dir) {
+  currentProduct = (currentProduct + dir + productos.length) % productos.length;
+  openModal(currentProduct);
+}
+
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('productModal').classList.contains('active')) return;
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'ArrowLeft') navigateModal(-1);
+  if (e.key === 'ArrowRight') navigateModal(1);
+});
+</script>
 
 </body>
 </html>

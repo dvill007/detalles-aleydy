@@ -31,11 +31,21 @@ class handler(BaseHTTPRequestHandler):
 
     @property
     def _actual_path(self):
-        """En Vercel, el path real viene en x-forwarded-path por el rewrite."""
-        return self.headers.get('x-forwarded-path', self.path)
+        """En Vercel, el path real puede venir en x-forwarded-path o x-now-route."""
+        return (self.headers.get('x-forwarded-path', '') or 
+                self.headers.get('x-vercel-forwarded-path', '') or 
+                self.path)
 
     def do_GET(self):
         path = self._actual_path
+        
+        # Debug: mostrar headers en produccion
+        if path == '/api/debug' or 'debug' in path:
+            return self._json({
+                'path': self.path,
+                'actual_path': path,
+                'headers': dict(self.headers)
+            })
 
         # Auth
         if path == '/api/auth/check':

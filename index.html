@@ -492,121 +492,22 @@ heroInterval = setInterval(heroNext, 5000);
     <h2 class="font-brand text-3xl md:text-4xl font-bold text-center mb-2">Nuestros Detalles</h2>
     <p class="text-gray-500 text-center mb-10">Desde S/15 — Para toda ocasión</p>
 
-    <!-- 🌹 RAMOS CLÁSICOS -->
+    <!-- 🌹 RAMOS CLÁSICOS — dinámico -->
     <h3 class="font-brand text-2xl font-bold text-center mb-6 text-brand-primary">🌹 Ramos Clásicos</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-
-      <!-- Ramo Básico -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-basico.webp" type="image/webp"><img src="assets/images/ramo-basico.jpg" alt="Ramo Básico" class="product-img cursor-pointer" onclick="openModal(0)" loading="lazy"></picture></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">🌟 Más vendido</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Básico</h3><p class="text-gray-500 text-sm mt-1">7 rosas eternas + dedicatoria + mariposa</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/45</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Básico%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Ramo 3 Rosas LOVE -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_14a033633021.webp" type="image/webp"><img src="assets/images/img_14a033633021.jpg" alt="Ramo 3 Rosas LOVE" class="product-img cursor-pointer" onclick="openModal(1)" loading="lazy"></picture></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">💕 Romántico</span><h3 class="font-brand text-lg font-bold mt-1">Ramo 3 Rosas LOVE</h3><p class="text-gray-500 text-sm mt-1">3 rosas fucsia + papel dorado + mariposa</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/20</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%203%20Rosas%20LOVE%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Ramo Premium Cumpleaños -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-cumpleanos.webp" type="image/webp"><img src="assets/images/ramo-cumpleanos.jpg" alt="Ramo Cumpleaños Premium" class="product-img cursor-pointer" onclick="openModal(2)" loading="lazy"></picture></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">👑 Premium</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Premium Cumpleaños</h3><p class="text-gray-500 text-sm mt-1">50 rosas eternas + corona dorada + lazo</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/280</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Premium%20Cumpleaños%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
+    <div id="grid-ramos-clasicos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <p class="text-gray-400 col-span-full text-center py-10">Cargando productos...</p>
     </div>
 
-    <!-- 🦋 RAMOS ESPECIALES -->
+    <!-- 🦋 RAMOS ESPECIALES — dinámico -->
     <h3 class="font-brand text-2xl font-bold text-center mb-6 text-brand-primary">🦋 Ramos Especiales</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-
-      <!-- Ramo Mariposas LED -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-mariposas.webp" type="image/webp"><img src="assets/images/ramo-mariposas.jpg" alt="Ramo Mariposas LED" class="product-img cursor-pointer" onclick="openModal(3)" loading="lazy"></picture></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">✨ Popular</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Mariposas LED</h3><p class="text-gray-500 text-sm mt-1">20 mariposas + luces LED + dedicatoria</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/55</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Mariposas%20LED%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Ramo Mariposas Azules -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_b2d6ada4fa56.webp" type="image/webp"><img src="assets/images/img_b2d6ada4fa56.jpg" alt="Ramo Mariposas Azules" class="product-img cursor-pointer" onclick="openModal(4)" loading="lazy"></picture></div>
-        <div class="p-5"><h3 class="font-brand text-lg font-bold mt-1">Ramo Mariposas Azules</h3><p class="text-gray-500 text-sm mt-1">Mariposas azul brillante + celofán azul/negro</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/45</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Mariposas%20Azules%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Ramo Mariposas Fucsia LED -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_c0735411f302.webp" type="image/webp"><img src="assets/images/img_c0735411f302.jpg" alt="Ramo Mariposas Fucsia LED" class="product-img cursor-pointer" onclick="openModal(5)" loading="lazy"></picture></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">💡 Iluminado</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Mariposas Fucsia LED</h3><p class="text-gray-500 text-sm mt-1">Mariposas fucsia iluminadas + envoltura rosa</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/45</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Mariposas%20Fucsia%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Ramo Girasol -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-girasol.webp" type="image/webp"><img src="assets/images/ramo-girasol.jpg" alt="Ramo de Girasol" class="product-img cursor-pointer" onclick="openModal(6)" loading="lazy"></picture></div>
-        <div class="p-5"><h3 class="font-brand text-lg font-bold mt-1">Ramo de Girasol</h3><p class="text-gray-500 text-sm mt-1">1 girasol eterno + dedicatoria + mariposa</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/20</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Girasol%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Ramo Flores de Peluche -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_a34b0dfbc225.webp" type="image/webp"><img src="assets/images/img_a34b0dfbc225.jpg" alt="Ramo Flores de Peluche" class="product-img cursor-pointer" onclick="openModal(7)" loading="lazy"></picture></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">🧸 Adorable</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Flores de Peluche</h3><p class="text-gray-500 text-sm mt-1">Flores de felpa suave + envoltura adorable</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/25</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Flores%20Peluche%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
+    <div id="grid-ramos-especiales" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <p class="text-gray-400 col-span-full text-center py-10">Cargando productos...</p>
     </div>
 
-    <!-- 🎀 RAMOS TEMÁTICOS -->
-    <h3 class="font-brand text-2xl font-bold text-center mb-6 text-brand-primary">🎀 Ramos Temáticos</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-
-      <!-- Ramo Hello Kitty -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_d688f18f7d3a.webp" type="image/webp"><img src="assets/images/img_d688f18f7d3a.jpg" alt="Ramo Hello Kitty" class="product-img cursor-pointer" onclick="openModal(8)" loading="lazy"></picture></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">🐱 Destacado</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Hello Kitty</h3><p class="text-gray-500 text-sm mt-1">Peluche HK + flores rosas + globo + dulce</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/65</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Hello%20Kitty%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Ramo Hello Kitty Love -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_ed3ccfaedd57.webp" type="image/webp"><img src="assets/images/img_ed3ccfaedd57.jpg" alt="Ramo Hello Kitty Love" class="product-img cursor-pointer" onclick="openModal(9)" loading="lazy"></picture></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">💖 San Valentín</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Hello Kitty Love</h3><p class="text-gray-500 text-sm mt-1">HK + rosas rosa/rojo San Valentín</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/50</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Hello%20Kitty%20Love%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Ramo Personalizado con Fotos -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_784211ce3e84.webp" type="image/webp"><img src="assets/images/img_784211ce3e84.jpg" alt="Ramo Personalizado con Fotos" class="product-img cursor-pointer" onclick="openModal(10)" loading="lazy"></picture></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">📸 Único</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Personalizado Fotos</h3><p class="text-gray-500 text-sm mt-1">2 rosas + fotos impresas + tarjeta</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/25</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Personalizado%20con%20Fotos%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Ramo Día de la Madre -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_eb33090a23c8.webp" type="image/webp"><img src="assets/images/img_eb33090a23c8.jpg" alt="Ramo Día de la Madre" class="product-img cursor-pointer" onclick="openModal(11)" loading="lazy"></picture></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">👩‍👧 Mamá</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Día de la Madre</h3><p class="text-gray-500 text-sm mt-1">Flores fucsia/blanco + tarjeta especial</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/45</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Día%20de%20la%20Madre%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Ramo I LOVE -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_0a93e11dc52e.webp" type="image/webp"><img src="assets/images/img_0a93e11dc52e.jpg" alt="Ramo I LOVE" class="product-img cursor-pointer" onclick="openModal(12)" loading="lazy"></picture></div>
-        <div class="p-5"><h3 class="font-brand text-lg font-bold mt-1">Ramo I LOVE</h3><p class="text-gray-500 text-sm mt-1">Flores chenilla rosa/morado/amarillo + LOVE</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/30</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20I%20LOVE%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Ramo Real Madrid -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/ramo-real-madrid.webp" type="image/webp"><img src="assets/images/ramo-real-madrid.jpg" alt="Ramo Real Madrid" class="product-img cursor-pointer" onclick="openModal(13)" loading="lazy"></picture></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">⚽ Fútbol</span><h3 class="font-brand text-lg font-bold mt-1">Ramo Real Madrid</h3><p class="text-gray-500 text-sm mt-1">Rosas azul/crema + emblema RM + dedicatoria</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/55</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Ramo%20Real%20Madrid%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Box Spiderman -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_5ee90e4148f2.webp" type="image/webp"><img src="assets/images/img_5ee90e4148f2.jpg" alt="Box Spiderman" class="product-img cursor-pointer" onclick="openModal(14)" loading="lazy"></picture></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">🕷️ Nuevo</span><h3 class="font-brand text-lg font-bold mt-1">Box Spiderman</h3><p class="text-gray-500 text-sm mt-1">Peluche + snacks + globo corazón + mensaje</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/60</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Box%20Spiderman%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Box Universitario -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_426a4ffe063d.webp" type="image/webp"><img src="assets/images/img_426a4ffe063d.jpg" alt="Box Universitario" class="product-img cursor-pointer" onclick="openModal(15)" loading="lazy"></picture></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">🟡🔴 Crema</span><h3 class="font-brand text-lg font-bold mt-1">Box Universitario</h3><p class="text-gray-500 text-sm mt-1">Snacks + osito + decoración crema</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/50</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Box%20Universitario%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
-
-      <!-- Box Alianza Lima -->
-      <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-        <div class="h-56 overflow-hidden"><picture><source srcset="assets/images/img_04f71873e24a.webp" type="image/webp"><img src="assets/images/img_04f71873e24a.jpg" alt="Box Alianza Lima" class="product-img cursor-pointer" onclick="openModal(16)" loading="lazy"></picture></div>
-        <div class="p-5"><span class="text-brand-primary text-sm font-bold">🔵⚪ Blanquiazul</span><h3 class="font-brand text-lg font-bold mt-1">Box Alianza Lima</h3><p class="text-gray-500 text-sm mt-1">Snacks + decoración azul/blanco</p><div class="flex items-center justify-between mt-4"><span class="text-2xl font-bold text-brand-primary">S/60</span><a href="https://wa.me/51931699656?text=Hola,%20quiero%20el%20Box%20Alianza%20Lima%20🎀" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a></div></div>
-      </div>
+    <!-- 🎀 RAMOS TEMÁTICOS / BOXES — dinámico -->
+    <h3 class="font-brand text-2xl font-bold text-center mb-6 text-brand-primary">🎀 Ramos Temáticos &amp; Boxes</h3>
+    <div id="grid-ramos-tematicos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <p class="text-gray-400 col-span-full text-center py-10">Cargando productos...</p>
     </div>
 
     <!-- Ver más -->
@@ -1200,41 +1101,88 @@ heroInterval = setInterval(heroNext, 5000);
 
 
 <script>
-const productos = [
-  { id:"ramo-basico", nombre:"Ramo Básico", precio:"S/45", desc:"7 rosas eternas + dedicatoria + mariposa", img:"assets/images/ramo-basico.jpg", badge:"🌟 Más vendido", colores:["#E91E8C","#FFFFFF","#FFD700","#C2185B","#F48FB1"], wa:"Hola, quiero el Ramo Básico 🎀" },
-  { id:"ramo-3-rosas", nombre:"Ramo 3 Rosas LOVE", precio:"S/20", desc:"3 rosas fucsia + papel dorado + mariposa", img:"assets/images/img_14a033633021.jpg", badge:"💕 Romántico", colores:["#E91E8C","#C2185B","#FFD700"], wa:"Hola, quiero el Ramo 3 Rosas LOVE 🎀" },
-  { id:"ramo-cumpleanos", nombre:"Ramo Premium Cumpleaños", precio:"S/280", desc:"50 rosas eternas + corona dorada + lazo", img:"assets/images/ramo-cumpleanos.jpg", badge:"👑 Premium", colores:["#E91E8C","#FFD700","#FFFFFF","#F48FB1","#4A148C"], wa:"Hola, quiero el Ramo Premium Cumpleaños 🎀" },
-  { id:"ramo-mariposas", nombre:"Ramo Mariposas LED", precio:"S/55", desc:"20 mariposas + luces LED + dedicatoria", img:"assets/images/ramo-mariposas.jpg", badge:"✨ Popular", colores:["#E91E8C","#9C27B0","#FFD700","#FFFFFF"], wa:"Hola, quiero el Ramo Mariposas LED 🎀" },
-  { id:"ramo-mariposas-azul", nombre:"Ramo Mariposas Azules", precio:"S/45", desc:"Mariposas azul brillante + celofán azul/negro", img:"assets/images/img_b2d6ada4fa56.jpg", badge:"", colores:["#1565C0","#0D47A1","#000000","#42A5F5"], wa:"Hola, quiero el Ramo Mariposas Azules 🎀" },
-  { id:"ramo-mariposas-fucsia", nombre:"Ramo Mariposas Fucsia LED", precio:"S/45", desc:"Mariposas fucsia iluminadas + envoltura rosa", img:"assets/images/img_c0735411f302.jpg", badge:"💡 Iluminado", colores:["#E91E8C","#C2185B","#FFD700","#F48FB1"], wa:"Hola, quiero el Ramo Mariposas Fucsia 🎀" },
-  { id:"ramo-girasol", nombre:"Ramo de Girasol", precio:"S/20", desc:"1 girasol eterno + dedicatoria + mariposa", img:"assets/images/ramo-girasol.jpg", badge:"", colores:["#FFD700","#FF8F00","#FFFFFF","#795548"], wa:"Hola, quiero el Ramo Girasol 🎀" },
-  { id:"ramo-flores-peluche", nombre:"Ramo Flores de Peluche", precio:"S/25", desc:"Flores de felpa suave + envoltura adorable", img:"assets/images/img_a34b0dfbc225.jpg", badge:"🧸 Adorable", colores:["#F48FB1","#CE93D8","#FFD700","#FFFFFF"], wa:"Hola, quiero el Ramo Flores de Peluche 🎀" },
-  { id:"ramo-hellokitty", nombre:"Ramo Hello Kitty", precio:"S/65", desc:"Peluche HK + flores rosas + globo + dulce", img:"assets/images/img_d688f18f7d3a.jpg", badge:"🐱 Destacado", colores:["#E91E8C","#FFFFFF","#F48FB1","#FFD700"], wa:"Hola, quiero el Ramo Hello Kitty 🎀" },
-  { id:"ramo-hellokitty-love", nombre:"Ramo Hello Kitty Love", precio:"S/50", desc:"HK + rosas rosa/rojo San Valentín", img:"assets/images/img_ed3ccfaedd57.jpg", badge:"💖 San Valentín", colores:["#E91E8C","#C2185B","#FFFFFF","#FFD700"], wa:"Hola, quiero el Ramo Hello Kitty Love 🎀" },
-  { id:"ramo-fotos", nombre:"Ramo Personalizado Fotos", precio:"S/25", desc:"2 rosas + fotos impresas + tarjeta", img:"assets/images/img_784211ce3e84.jpg", badge:"📸 Único", colores:["#E91E8C","#FFFFFF","#FFD700","#9C27B0"], wa:"Hola, quiero el Ramo Personalizado con Fotos 🎀" },
-  { id:"ramo-dia-madre", nombre:"Ramo Día de la Madre", precio:"S/45", desc:"Flores fucsia/blanco + tarjeta especial", img:"assets/images/img_eb33090a23c8.jpg", badge:"👩‍👧 Mamá", colores:["#E91E8C","#FFFFFF","#FFD700","#F48FB1"], wa:"Hola, quiero el Ramo Día de la Madre 🎀" },
-  { id:"ramo-ilove", nombre:"Ramo I LOVE", precio:"S/30", desc:"Flores chenilla rosa/morado/amarillo + LOVE", img:"assets/images/img_0a93e11dc52e.jpg", badge:"", colores:["#E91E8C","#9C27B0","#FFD700","#FFFFFF"], wa:"Hola, quiero el Ramo I LOVE 🎀" },
-  { id:"ramo-real-madrid", nombre:"Ramo Real Madrid", precio:"S/55", desc:"Rosas azul/crema + emblema RM + dedicatoria", img:"assets/images/ramo-real-madrid.jpg", badge:"⚽ Fútbol", colores:["#1565C0","#FFD700","#FFFFFF","#E91E8C"], wa:"Hola, quiero el Ramo Real Madrid 🎀" },
-  { id:"box-spiderman", nombre:"Box Spiderman", precio:"S/60", desc:"Peluche + snacks + globo corazón + mensaje", img:"assets/images/img_5ee90e4148f2.jpg", badge:"🕷️ Nuevo", colores:["#E91E8C","#1565C0","#FFFFFF","#C2185B"], wa:"Hola, quiero el Box Spiderman 🎀" },
-  { id:"box-universitario", nombre:"Box Universitario", precio:"S/50", desc:"Snacks + osito + decoración crema", img:"assets/images/img_426a4ffe063d.jpg", badge:"🟡🔴 Crema", colores:["#FFD700","#C2185B","#FFFFFF","#000000"], wa:"Hola, quiero el Box Universitario 🎀" },
-  { id:"box-alianza", nombre:"Box Alianza Lima", precio:"S/60", desc:"Snacks + decoración azul/blanco", img:"assets/images/img_04f71873e24a.jpg", badge:"🔵⚪ Blanquiazul", colores:["#1565C0","#FFFFFF","#0D47A1","#FFD700"], wa:"Hola, quiero el Box Alianza Lima 🎀" }
-];
-
+/* ===== CATÁLOGO DINÁMICO desde Firestore ===== */
+let productos = [];
 let currentProduct = 0;
 
+// Mapeo de IDs de categoria de Firestore a grids en la landing
+const CATEGORY_GRIDS = {
+  'ramos-clasicos': 'grid-ramos-clasicos',
+  'ramos-especiales': 'grid-ramos-especiales',
+};
+// Todo lo demás (incluyendo boxes-tematicos) va a grid-ramos-tematicos
+const TEMATICOS_GRID = 'grid-ramos-tematicos';
+
+async function loadProductos() {
+  try {
+    const resp = await fetch('/api/productos-public');
+    productos = await resp.json();
+    renderProductos();
+  } catch (e) {
+    console.error('Error cargando productos:', e);
+    document.querySelectorAll('[id^="grid-ramos-"]').forEach(g => {
+      g.innerHTML = '<p class="text-red-400 col-span-full text-center py-10">Error al cargar. Recargá la página.</p>';
+    });
+  }
+}
+
+function renderProductos() {
+  // Agrupar por grid
+  const groups = {};
+  for (const p of productos) {
+    const gridId = CATEGORY_GRIDS[p.categoria] || TEMATICOS_GRID;
+    if (!groups[gridId]) groups[gridId] = [];
+    groups[gridId].push(p);
+  }
+
+  // Renderizar cada grid
+  for (const [gridId, prods] of Object.entries(groups)) {
+    const grid = document.getElementById(gridId);
+    if (!grid) continue;
+    grid.innerHTML = prods.map((p, i) => {
+      const globalIndex = productos.indexOf(p);
+      const webp = p.foto ? p.foto.replace(/\.jpg$/i, '.webp').replace(/\.jpeg$/i, '.webp') : '';
+      const waText = encodeURIComponent('Hola, quiero ' + p.nombre + ' 🎀');
+      return '<div class="product-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">' +
+        '<div class="h-56 overflow-hidden">' +
+          (webp
+            ? '<picture><source srcset="' + webp + '" type="image/webp"><img src="' + p.foto + '" alt="' + p.nombre + '" class="product-img cursor-pointer" onclick="openModal(' + globalIndex + ')" loading="lazy" onerror="this.src=\'assets/images/placeholder.jpg\'"></picture>'
+            : '<div class="w-full h-full bg-pink-50 flex items-center justify-center text-pink-300 text-5xl cursor-pointer" onclick="openModal(' + globalIndex + ')">🎀</div>'
+          ) +
+        '</div>' +
+        '<div class="p-5">' +
+          (p.badge ? '<span class="text-brand-primary text-sm font-bold">' + p.badge + '</span>' : '') +
+          '<h3 class="font-brand text-lg font-bold mt-1">' + p.nombre + '</h3>' +
+          '<p class="text-gray-500 text-sm mt-1">' + (p.descripcion || '') + '</p>' +
+          '<div class="flex items-center justify-between mt-4">' +
+            '<span class="text-2xl font-bold text-brand-primary">S/' + p.precio + '</span>' +
+            '<a href="https://wa.me/51931699656?text=' + waText + '" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition">Pedir</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  // Actualizar contador
+  var countEl = document.querySelector('a[href*="catálogo"]');
+  if (countEl) countEl.textContent = '📋 Ver catálogo completo (' + productos.length + ' productos)';
+}
+
+/* ===== MODAL ===== */
 function openModal(index) {
   currentProduct = index;
-  const p = productos[index];
-  document.getElementById('modalImg').src = p.img;
+  var p = productos[index];
+  if (!p) return;
+  document.getElementById('modalImg').src = p.foto || '';
   document.getElementById('modalImg').alt = p.nombre;
   document.getElementById('modalTitle').textContent = p.nombre;
-  document.getElementById('modalPrice').textContent = p.precio;
-  document.getElementById('modalDesc').textContent = p.desc;
-  const badge = document.getElementById('modalBadge');
+  document.getElementById('modalPrice').textContent = 'S/' + p.precio;
+  document.getElementById('modalDesc').textContent = p.descripcion || '';
+  var badge = document.getElementById('modalBadge');
   badge.textContent = p.badge || '';
   badge.style.display = p.badge ? '' : 'none';
-  document.getElementById('modalWhatsApp').href = 'https://wa.me/51931699656?text=' + encodeURIComponent(p.wa);
-  document.getElementById('modalColors').innerHTML = p.colores.map(function(c) { return '<span class="color-dot" style="background:'+c+'"></span>'; }).join('');
+  document.getElementById('modalWhatsApp').href = 'https://wa.me/51931699656?text=' + encodeURIComponent('Hola, quiero ' + p.nombre + ' 🎀');
+  document.getElementById('modalColors').innerHTML = ''; // Firestore no tiene colores aún
   document.getElementById('productModal').classList.add('active');
   document.body.style.overflow = 'hidden';
   if (typeof gtag !== 'undefined') gtag('event', 'view_item', { items: [{ item_name: p.nombre, price: p.precio }] });
@@ -1247,9 +1195,12 @@ function closeModal(e) {
 }
 
 function navigateModal(dir) {
-  currentProduct = (currentProduct + dir + productos.length) % productos.length;
-  openModal(currentProduct);
+  var next = currentProduct + dir;
+  if (next >= 0 && next < productos.length) openModal(next);
 }
+
+// Iniciar carga
+loadProductos();
 
 document.addEventListener('keydown', function(e) {
   if (!document.getElementById('productModal').classList.contains('active')) return;

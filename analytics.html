@@ -138,23 +138,27 @@
       </div>
     </div>
 
-    <!-- ═══ TRÁFICO (requiere GA4) ═══ -->
-    <div class="card mb-8 border border-dashed border-[#3a3a5a] bg-[#151528]">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="text-2xl">📈</span>
-        <div>
-          <h3 class="font-brand text-lg font-bold text-white">Métricas de Tráfico</h3>
-          <p class="text-gray-500 text-xs">Requiere conectar Google Analytics 4</p>
+    <!-- ═══ TRÁFICO REAL ═══ -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      
+      <!-- Visitas diarias (últimos 7 días) -->
+      <div class="card">
+        <h3 class="font-brand text-lg font-bold text-white mb-2">📊 Visitas — Últimos 7 días</h3>
+        <p class="text-gray-500 text-xs mb-4" id="totalVisitasLabel">Total: — visitas</p>
+        <canvas id="chartVisitas"></canvas>
+      </div>
+
+      <!-- Total acumulado -->
+      <div class="card flex flex-col items-center justify-center text-center">
+        <p class="text-gray-400 text-xs uppercase tracking-wide mb-2">Visitas totales (14 días)</p>
+        <span class="text-6xl font-bold text-brand-primary" id="totalVisitasAll">—</span>
+        <p class="text-gray-500 text-sm mt-2">🏠 Visitas a la landing page</p>
+        <div class="mt-4 flex gap-2 text-xs text-gray-500">
+          <span class="bg-[#111122] px-3 py-1 rounded-full">📱 Hoy: <span id="visitasHoy">—</span></span>
+          <span class="bg-[#111122] px-3 py-1 rounded-full">📅 Ayer: <span id="visitasAyer">—</span></span>
         </div>
       </div>
-      <p class="text-gray-400 text-sm leading-relaxed">
-        Para ver visitas diarias, dispositivos, ciudades y tasa de conversión, conectá tu cuenta de Google Analytics.
-        Es gratis y toma 5 minutos.
-      </p>
-      <a href="https://analytics.google.com" target="_blank" 
-         class="inline-block mt-3 bg-[#2a2a4a] text-white px-4 py-2 rounded-lg text-sm hover:bg-[#3a3a5a] transition">
-        Ir a Google Analytics →
-      </a>
+
     </div>
 
     <!-- ═══ FOOTER ═══ -->
@@ -192,16 +196,26 @@ function logout() {
 // ─── CARGAR DATOS REALES ───
 async function loadData() {
   try {
-    const [prods, cats] = await Promise.all([
+    const [prods, cats, visitasResp] = await Promise.all([
       fetch('/api/productos-public').then(r => r.json()),
-      fetch('/api/categorias-public').then(r => r.json())
+      fetch('/api/categorias-public').then(r => r.json()),
+      fetch('/api/visitas').then(r => r.json())
     ]);
 
     renderStats(prods, cats);
     renderCharts(prods, cats);
+    renderVisitasChart(visitasResp);
     renderTabla(prods);
     renderDestacados(prods);
     renderRecientes(prods);
+    
+    // Stats de tráfico
+    const dias = visitasResp.dias || [];
+    document.getElementById('totalVisitasAll').textContent = visitasResp.total || 0;
+    if (dias.length > 0) {
+      document.getElementById('visitasHoy').textContent = dias[dias.length - 1].total;
+      document.getElementById('visitasAyer').textContent = dias.length > 1 ? dias[dias.length - 2].total : 0;
+    }
     
     const now = new Date();
     document.getElementById('lastUpdate').textContent = 
@@ -228,9 +242,9 @@ function renderStats(prods, cats) {
 // ─── CHARTS ───
 function renderCharts(prods, cats) {
   if (chartsReady) {
-    // Destroy existing charts
     Chart.getChart('chartCategorias')?.destroy();
     Chart.getChart('chartPrecios')?.destroy();
+    Chart.getChart('chartVisitas')?.destroy();
   }
   chartsReady = true;
   
@@ -296,6 +310,46 @@ function renderCharts(prods, cats) {
       scales: {
         y: { beginAtZero: true, grid: { color: '#1e1e3a' }, ticks: { stepSize: 1, color: '#888' } },
         x: { grid: { display: false }, ticks: { color: '#ccc' } }
+      }
+    }
+  });
+}
+
+// ─── VISITAS CHART ───
+function renderVisitasChart(data) {
+  const dias = (data.dias || []).slice(-7); // últimos 7 días
+  const labels = dias.map(d => {
+    const parts = d.fecha.split('-');
+    return parts[2] + '/' + parts[1]; // formato DD/MM
+  });
+  const values = dias.map(d => d.total);
+  
+  const totalSemana = values.reduce((a,b) => a+b, 0);
+  document.getElementById('totalVisitasLabel').textContent = 'Total 7 días: ' + totalSemana + ' visitas';
+
+  new Chart(document.getElementById('chartVisitas'), {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Visitas',
+        data: values,
+        borderColor: '#E91E8C',
+        backgroundColor: 'rgba(233,30,140,0.1)',
+        fill: true,
+        tension: 0.4,
+        pointBackgroundColor: '#E91E8C',
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, grid: { color: '#1e1e3a' }, ticks: { stepSize: 1, color: '#888' } },
+        x: { grid: { display: false }, ticks: { color: '#888' } }
       }
     }
   });

@@ -1208,6 +1208,9 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft') navigateModal(-1);
   if (e.key === 'ArrowRight') navigateModal(1);
 });
+
+// Tracking de visitas
+fetch('/api/track-visit', { method: 'POST' }).catch(function(){});
 </script>
 
 </body>

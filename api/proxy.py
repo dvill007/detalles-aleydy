@@ -87,11 +87,40 @@ class handler(BaseHTTPRequestHandler):
             cats = [{'id': d.id, **d.to_dict()} for d in db.collection('categorias').get()]
             return self._json(cats)
 
+        # Tracking de visitas (público)
+        if path == '/api/visitas':
+            # Últimos 14 días
+            from datetime import datetime, timedelta
+            visits = []
+            for i in range(14):
+                day = (datetime.utcnow() - timedelta(days=i)).strftime('%Y-%m-%d')
+                doc = db.collection('visitas').document(day).get()
+                visits.append({
+                    'fecha': day,
+                    'total': doc.to_dict().get('total', 0) if doc.exists else 0
+                })
+            visits.reverse()
+            total_all = sum(v['total'] for v in visits)
+            return self._json({'dias': visits, 'total': total_all})
+
         self._json({'error': 'Not found'}, 404)
 
     def do_POST(self):
         path = self._actual_path
         body = self._read_body()
+
+        # Tracking de visita (público, sin auth)
+        if path == '/api/track-visit':
+            from datetime import datetime
+            today = datetime.utcnow().strftime('%Y-%m-%d')
+            ref = db.collection('visitas').document(today)
+            doc = ref.get()
+            current = doc.to_dict().get('total', 0) if doc.exists else 0
+            ref.set({
+                'total': current + 1,
+                'ultimaVisita': firestore.SERVER_TIMESTAMP
+            }, merge=True)
+            return self._json({'ok': True, 'totalHoy': current + 1})
 
         # Login
         if path == '/api/auth/login':

@@ -98,7 +98,18 @@
         <textarea id="prod-descripcion" placeholder="Descripcion" rows="2" class="w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-pink-400"></textarea>
         <div class="flex gap-3">
           <input id="prod-precio" type="number" step="0.01" placeholder="Precio S/" required class="flex-1 px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-pink-400">
-          <input id="prod-foto" placeholder="Ruta de foto" class="flex-1 px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-pink-400">
+          <input id="prod-foto" type="hidden">
+        </div>
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-600">📸 Foto del producto</label>
+          <div class="flex items-center gap-3">
+            <input type="file" id="prod-foto-file" accept="image/*" class="flex-1 text-sm file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-pink-50 file:text-pink-600 hover:file:bg-pink-100">
+            <button type="button" onclick="clearFoto()" class="text-xs text-red-500 hover:text-red-700 hidden" id="btn-clear-foto">✕ Quitar</button>
+          </div>
+          <div id="foto-preview" class="hidden mt-2 relative">
+            <img id="foto-preview-img" src="" class="w-full h-40 object-cover rounded-xl border">
+            <span class="text-xs text-gray-400 mt-1 block" id="foto-preview-size"></span>
+          </div>
         </div>
         <div class="flex gap-3">
           <input id="prod-badge" placeholder="Badge" class="flex-1 px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-pink-400">
@@ -136,6 +147,42 @@ const API = '';
 let TOKEN = localStorage.getItem('aleydy_token') || '';
 let currentTab = 'productos';
 let editingId = null;
+let fotoBase64 = '';  // Imagen en base64 para enviar al guardar
+
+// ====== IMAGE UPLOADER ======
+document.getElementById('prod-foto-file').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  // Validar tamaño max 400KB para no saturar Firestore
+  if (file.size > 400 * 1024) {
+    toast('Imagen muy grande (max 400KB). Reducila.', 'error');
+    this.value = '';
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    fotoBase64 = ev.target.result;
+    document.getElementById('prod-foto').value = fotoBase64;
+    document.getElementById('foto-preview-img').src = fotoBase64;
+    document.getElementById('foto-preview').classList.remove('hidden');
+    document.getElementById('btn-clear-foto').classList.remove('hidden');
+    document.getElementById('foto-preview-size').textContent = 
+      Math.round(file.size / 1024) + ' KB — ' + file.name;
+    toast('Foto cargada ✅', 'success');
+  };
+  reader.readAsDataURL(file);
+});
+
+function clearFoto() {
+  fotoBase64 = '';
+  document.getElementById('prod-foto').value = '';
+  document.getElementById('prod-foto-file').value = '';
+  document.getElementById('foto-preview').classList.add('hidden');
+  document.getElementById('btn-clear-foto').classList.add('hidden');
+  document.getElementById('foto-preview-img').src = '';
+}
 
 // ====== AUTH ======
 if (TOKEN) checkAuth();
@@ -293,6 +340,14 @@ async function openProductModal(id = null) {
   document.getElementById('modal-title').textContent = id ? 'Editar Producto' : 'Nuevo Producto';
   document.getElementById('product-modal').classList.remove('hidden');
 
+  // Resetear uploader
+  fotoBase64 = '';
+  document.getElementById('prod-foto').value = '';
+  document.getElementById('prod-foto-file').value = '';
+  document.getElementById('foto-preview').classList.add('hidden');
+  document.getElementById('btn-clear-foto').classList.add('hidden');
+  document.getElementById('foto-preview-img').src = '';
+
   // Cargar categorias en el select
   const cats = await api('/api/categorias');
   document.getElementById('prod-categoria').innerHTML = '<option value="">Categoria</option>' +
@@ -307,14 +362,31 @@ async function openProductModal(id = null) {
       document.getElementById('prod-categoria').value = p.categoria;
       document.getElementById('prod-descripcion').value = p.descripcion || '';
       document.getElementById('prod-precio').value = p.precio;
-      document.getElementById('prod-foto').value = p.foto || '';
       document.getElementById('prod-badge').value = p.badge || '';
       document.getElementById('prod-destacado').checked = p.destacado;
       document.getElementById('prod-activo').checked = p.activo !== false;
+      
+      // Mostrar preview de imagen existente
+      if (p.foto) {
+        document.getElementById('foto-preview-img').src = p.foto;
+        document.getElementById('foto-preview').classList.remove('hidden');
+        document.getElementById('btn-clear-foto').classList.remove('hidden');
+        document.getElementById('foto-preview-size').textContent = p.foto.startsWith('data:') 
+          ? 'Imagen actual (base64)' 
+          : 'Ruta: ' + p.foto;
+        // Si es data URL, mantenerlo; si es ruta, mantenerla
+        if (p.foto.startsWith('data:')) {
+          fotoBase64 = p.foto;
+          document.getElementById('prod-foto').value = p.foto;
+        } else {
+          document.getElementById('prod-foto').value = p.foto;
+        }
+      }
     }
   } else {
     document.getElementById('product-form').reset();
     document.getElementById('prod-id').value = '';
+    document.getElementById('prod-activo').checked = true;
   }
 }
 

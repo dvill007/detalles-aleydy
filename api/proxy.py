@@ -23,7 +23,7 @@ if not firebase_admin._apps:
     firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-AUTH_TOKEN = os.environ.get('DASHBOARD_TOKEN', 'aleydy-admin-2026')
+AUTH_TOKEN = os.environ.get('DASHBOARD_TOKEN', 'aleydy2024')
 
 
 class handler(BaseHTTPRequestHandler):

@@ -17,7 +17,7 @@ from firebase_admin import credentials, firestore
 
 # === CONFIGURACION ===
 PORT = 5050
-AUTH_TOKEN = 'aleydy-admin-2026'  # Token simple para el dashboard
+AUTH_TOKEN = 'aleydy2024'  # Token simple para el dashboard
 STATIC_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # === INICIALIZAR FIREBASE ===

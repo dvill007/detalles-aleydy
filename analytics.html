@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard — Detalles Aleydy</title>
+  <title>Analytics — Detalles Aleydy</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={theme:{extend:{colors:{brand:{primary:'#E91E8C',light:'#F8BBD0',gold:'#FFD700'}}}}}</script>
@@ -13,8 +13,6 @@
     .font-brand { font-family: 'Playfair Display', Georgia, serif; }
     .card { background: #1a1a2e; border-radius: 1rem; padding: 1.5rem; border: 1px solid #2a2a4a; }
     .stat-card { background: linear-gradient(135deg, #1a1a2e 0%, #1e1e3a 100%); border-left: 3px solid; }
-    .glow-pink { box-shadow: 0 0 20px rgba(233,30,140,0.15); }
-    .glow-gold { box-shadow: 0 0 20px rgba(255,215,0,0.1); }
     canvas { max-height: 280px; }
   </style>
 </head>
@@ -44,12 +42,12 @@
       <div class="flex items-center gap-3">
         <span class="text-3xl">🎀</span>
         <span class="font-brand text-xl font-bold text-white">Detalles Aleydy</span>
-        <span class="bg-brand-primary/20 text-brand-primary text-xs font-bold px-3 py-1 rounded-full">DASHBOARD</span>
+        <span class="bg-brand-primary/20 text-brand-primary text-xs font-bold px-3 py-1 rounded-full">ANALYTICS</span>
       </div>
       <div class="flex items-center gap-4">
-        <span class="text-gray-400 text-sm hidden sm:inline">Datos actualizados: <span id="lastUpdate">hoy</span></span>
-        <a href="/dashboard" target="_blank" class="text-gray-400 hover:text-white transition text-sm">📦 Dashboard</a>
-        <a href="https://detalles-aleydy.vercel.app" target="_blank" class="text-gray-400 hover:text-white transition text-sm">🔗 Ver landing</a>
+        <span class="text-gray-400 text-sm hidden sm:inline">Actualizado: <span id="lastUpdate">—</span></span>
+        <a href="/dashboard" class="text-gray-400 hover:text-white transition text-sm">📦 Dashboard</a>
+        <a href="https://detalles-aleydy.vercel.app" target="_blank" class="text-gray-400 hover:text-white transition text-sm">🔗 Landing</a>
         <button onclick="logout()" class="text-gray-400 hover:text-red-400 transition text-sm">Salir</button>
       </div>
     </div>
@@ -59,98 +57,109 @@
     
     <!-- ═══ STATS ROW ═══ -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      <div class="card stat-card glow-pink" style="border-left-color:#E91E8C">
-        <p class="text-gray-400 text-xs uppercase tracking-wide mb-1">Visitas hoy</p>
-        <span class="text-3xl font-bold text-white" id="statVisitas">247</span>
-        <span class="text-green-400 text-sm ml-2">↑ 12%</span>
+      <div class="card stat-card" style="border-left-color:#E91E8C">
+        <p class="text-gray-400 text-xs uppercase tracking-wide mb-1">Productos activos</p>
+        <span class="text-3xl font-bold text-white" id="statProductos">—</span>
+        <span class="text-gray-500 text-xs ml-2">en catálogo</span>
       </div>
-      <div class="card stat-card glow-gold" style="border-left-color:#FFD700">
-        <p class="text-gray-400 text-xs uppercase tracking-wide mb-1">Clicks WhatsApp</p>
-        <span class="text-3xl font-bold text-white" id="statWA">38</span>
-        <span class="text-green-400 text-sm ml-2">↑ 8%</span>
+      <div class="card stat-card" style="border-left-color:#FFD700">
+        <p class="text-gray-400 text-xs uppercase tracking-wide mb-1">Categorías</p>
+        <span class="text-3xl font-bold text-white" id="statCategorias">—</span>
+        <span class="text-gray-500 text-xs ml-2">secciones</span>
       </div>
       <div class="card stat-card" style="border-left-color:#6366f1">
-        <p class="text-gray-400 text-xs uppercase tracking-wide mb-1">Prod. vistos</p>
-        <span class="text-3xl font-bold text-white" id="statProd">112</span>
-        <span class="text-green-400 text-sm ml-2">↑ 15%</span>
+        <p class="text-gray-400 text-xs uppercase tracking-wide mb-1">Precio promedio</p>
+        <span class="text-3xl font-bold text-white" id="statPrecioAvg">—</span>
+        <span class="text-gray-500 text-xs ml-2">soles</span>
       </div>
       <div class="card stat-card" style="border-left-color:#22c55e">
-        <p class="text-gray-400 text-xs uppercase tracking-wide mb-1">Tasa conversión</p>
-        <span class="text-3xl font-bold text-white" id="statConv">15.4%</span>
-        <span class="text-green-400 text-sm ml-2">↑ 3%</span>
+        <p class="text-gray-400 text-xs uppercase tracking-wide mb-1">Destacados</p>
+        <span class="text-3xl font-bold text-white" id="statDestacados">—</span>
+        <span class="text-gray-500 text-xs ml-2">⭐ productos</span>
       </div>
     </div>
 
     <!-- ═══ CHARTS ROW 1 ═══ -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
       
-      <!-- Visitas últimos 7 días -->
-      <div class="card glow-pink">
-        <h3 class="font-brand text-lg font-bold text-white mb-2">📊 Visitas — Últimos 7 días</h3>
-        <p class="text-gray-500 text-xs mb-4">Vistas de página únicas</p>
-        <canvas id="chartVisitas"></canvas>
+      <!-- Distribución por categoría -->
+      <div class="card">
+        <h3 class="font-brand text-lg font-bold text-white mb-2">📊 Productos por Categoría</h3>
+        <p class="text-gray-500 text-xs mb-4">Distribución real del catálogo</p>
+        <canvas id="chartCategorias"></canvas>
       </div>
 
-      <!-- Top productos clickeados -->
-      <div class="card glow-gold">
-        <h3 class="font-brand text-lg font-bold text-white mb-2">🛒 Top 5 Productos</h3>
-        <p class="text-gray-500 text-xs mb-4">Clicks en "Pedir" por producto</p>
-        <canvas id="chartProductos"></canvas>
+      <!-- Rango de precios -->
+      <div class="card">
+        <h3 class="font-brand text-lg font-bold text-white mb-2">💰 Rango de Precios</h3>
+        <p class="text-gray-500 text-xs mb-4">Productos por rango (S/)</p>
+        <canvas id="chartPrecios"></canvas>
       </div>
 
     </div>
 
-    <!-- ═══ CHARTS ROW 2 ═══ -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <!-- ═══ PRODUCTOS DESTACADOS ═══ -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
       
-      <!-- Dispositivos -->
       <div class="card">
-        <h3 class="font-brand text-lg font-bold text-white mb-2">📱 Dispositivos</h3>
-        <p class="text-gray-500 text-xs mb-4">Mobile vs Desktop</p>
-        <canvas id="chartDispositivos"></canvas>
+        <h3 class="font-brand text-lg font-bold text-white mb-4">⭐ Productos Destacados</h3>
+        <div id="listaDestacados" class="space-y-3">
+          <p class="text-gray-500 text-sm">Cargando...</p>
+        </div>
       </div>
 
-      <!-- Horarios pico -->
       <div class="card">
-        <h3 class="font-brand text-lg font-bold text-white mb-2">⏰ Horarios pico</h3>
-        <p class="text-gray-500 text-xs mb-4">WhatsApp clicks por hora</p>
-        <canvas id="chartHorarios"></canvas>
-      </div>
-
-      <!-- Geografía -->
-      <div class="card">
-        <h3 class="font-brand text-lg font-bold text-white mb-2">🗺️ Ciudades</h3>
-        <p class="text-gray-500 text-xs mb-4">Origen de visitas</p>
-        <canvas id="chartGeo"></canvas>
+        <h3 class="font-brand text-lg font-bold text-white mb-4">🆕 Últimos Agregados</h3>
+        <div id="listaRecientes" class="space-y-3">
+          <p class="text-gray-500 text-sm">Cargando...</p>
+        </div>
       </div>
 
     </div>
 
-    <!-- ═══ TABLA RECIENTE ═══ -->
+    <!-- ═══ CATÁLOGO COMPLETO ═══ -->
     <div class="card mb-8">
-      <h3 class="font-brand text-lg font-bold text-white mb-4">📋 Actividad reciente</h3>
+      <h3 class="font-brand text-lg font-bold text-white mb-4">📋 Catálogo Completo</h3>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
             <tr class="text-gray-400 text-left border-b border-[#2a2a4a]">
               <th class="pb-3">Producto</th>
-              <th class="pb-3">Acción</th>
+              <th class="pb-3">Categoría</th>
               <th class="pb-3">Precio</th>
-              <th class="pb-3">Hora</th>
-              <th class="pb-3 hidden sm:table-cell">Dispositivo</th>
+              <th class="pb-3">Badge</th>
+              <th class="pb-3 hidden sm:table-cell">Estado</th>
             </tr>
           </thead>
-          <tbody id="tablaActividad" class="text-gray-300">
-            <!-- JS llena esto -->
+          <tbody id="tablaProductos" class="text-gray-300">
+            <tr><td colspan="5" class="py-4 text-center text-gray-500">Cargando...</td></tr>
           </tbody>
         </table>
       </div>
     </div>
 
+    <!-- ═══ TRÁFICO (requiere GA4) ═══ -->
+    <div class="card mb-8 border border-dashed border-[#3a3a5a] bg-[#151528]">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-2xl">📈</span>
+        <div>
+          <h3 class="font-brand text-lg font-bold text-white">Métricas de Tráfico</h3>
+          <p class="text-gray-500 text-xs">Requiere conectar Google Analytics 4</p>
+        </div>
+      </div>
+      <p class="text-gray-400 text-sm leading-relaxed">
+        Para ver visitas diarias, dispositivos, ciudades y tasa de conversión, conectá tu cuenta de Google Analytics.
+        Es gratis y toma 5 minutos.
+      </p>
+      <a href="https://analytics.google.com" target="_blank" 
+         class="inline-block mt-3 bg-[#2a2a4a] text-white px-4 py-2 rounded-lg text-sm hover:bg-[#3a3a5a] transition">
+        Ir a Google Analytics →
+      </a>
+    </div>
+
     <!-- ═══ FOOTER ═══ -->
-    <p class="text-center text-gray-600 text-xs">
-      Dashboard · Detalles Aleydy 🎀 · Conectado a Google Analytics 4 · 
-      <a href="https://analytics.google.com" target="_blank" class="text-brand-primary hover:underline">GA4 →</a>
+    <p class="text-center text-gray-600 text-xs pb-8">
+      Analytics · Detalles Aleydy 🎀 · Datos en tiempo real desde Firebase
     </p>
 
   </main>
@@ -160,13 +169,14 @@
 <script>
 // ─── AUTH ───
 const PASSWORD = 'aleydy2024';
+let chartsReady = false;
 
 function login() {
   const input = document.getElementById('passInput').value;
   if (input === PASSWORD) {
     document.getElementById('loginScreen').classList.add('hidden');
     document.getElementById('dashboardScreen').classList.remove('hidden');
-    initCharts();
+    loadData();
   } else {
     document.getElementById('loginError').classList.remove('hidden');
   }
@@ -179,179 +189,173 @@ function logout() {
   document.getElementById('loginError').classList.add('hidden');
 }
 
-// ─── DATA (mock — listo para conectar GA4 API) ───
-const visitasData = {
-  labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
-  values: [180, 210, 195, 247, 260, 320, 290]
-};
+// ─── CARGAR DATOS REALES ───
+async function loadData() {
+  try {
+    const [prods, cats] = await Promise.all([
+      fetch('/api/productos-public').then(r => r.json()),
+      fetch('/api/categorias-public').then(r => r.json())
+    ]);
 
-const productosData = {
-  labels: ['Ramo Básico', 'Mariposas LED', 'Ramo Premium', 'Box Spiderman', 'Hello Kitty'],
-  values: [28, 22, 15, 18, 12]
-};
+    renderStats(prods, cats);
+    renderCharts(prods, cats);
+    renderTabla(prods);
+    renderDestacados(prods);
+    renderRecientes(prods);
+    
+    const now = new Date();
+    document.getElementById('lastUpdate').textContent = 
+      now.toLocaleDateString('es-PE', { day:'numeric', month:'short' }) + ' ' +
+      now.toLocaleTimeString('es-PE', { hour:'2-digit', minute:'2-digit' });
+  } catch (e) {
+    console.error('Error cargando analytics:', e);
+  }
+}
 
-const horariosData = {
-  labels: ['8am', '10am', '12pm', '2pm', '4pm', '6pm', '8pm', '10pm'],
-  values: [3, 8, 12, 15, 18, 22, 14, 5]
-};
+// ─── STATS ───
+function renderStats(prods, cats) {
+  document.getElementById('statProductos').textContent = prods.length;
+  document.getElementById('statCategorias').textContent = cats.length;
+  
+  const precios = prods.map(p => p.precio).filter(p => p > 0);
+  const avg = precios.length ? Math.round(precios.reduce((a,b) => a+b, 0) / precios.length) : 0;
+  document.getElementById('statPrecioAvg').textContent = 'S/' + avg;
+  
+  const destacados = prods.filter(p => p.destacado).length;
+  document.getElementById('statDestacados').textContent = destacados;
+}
 
 // ─── CHARTS ───
-function initCharts() {
+function renderCharts(prods, cats) {
+  if (chartsReady) {
+    // Destroy existing charts
+    Chart.getChart('chartCategorias')?.destroy();
+    Chart.getChart('chartPrecios')?.destroy();
+  }
+  chartsReady = true;
+  
   Chart.defaults.color = '#888';
   Chart.defaults.borderColor = '#2a2a4a';
   Chart.defaults.font.family = 'Inter, sans-serif';
 
-  // Visitas
-  new Chart(document.getElementById('chartVisitas'), {
-    type: 'line',
+  // Distribución por categoría
+  const catCounts = {};
+  for (const p of prods) {
+    const catName = cats.find(c => c.id === p.categoria);
+    const label = catName ? catName.nombre : p.categoria;
+    catCounts[label] = (catCounts[label] || 0) + 1;
+  }
+  
+  const catColors = ['#E91E8C', '#FFD700', '#6366f1', '#22c55e', '#f97316', '#06b6d4', '#8b5cf6', '#ec4899'];
+  
+  new Chart(document.getElementById('chartCategorias'), {
+    type: 'doughnut',
     data: {
-      labels: visitasData.labels,
+      labels: Object.keys(catCounts),
       datasets: [{
-        label: 'Visitas',
-        data: visitasData.values,
-        borderColor: '#E91E8C',
-        backgroundColor: 'rgba(233,30,140,0.1)',
-        fill: true,
-        tension: 0.4,
-        pointBackgroundColor: '#E91E8C',
-        pointRadius: 4,
-        pointHoverRadius: 7,
-        borderWidth: 2
+        data: Object.values(catCounts),
+        backgroundColor: catColors.slice(0, Object.keys(catCounts).length),
+        borderColor: '#1a1a2e',
+        borderWidth: 3
       }]
     },
     options: {
       responsive: true,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: { beginAtZero: false, grid: { color: '#1e1e3a' }, ticks: { color: '#888' } },
-        x: { grid: { display: false }, ticks: { color: '#888' } }
+      cutout: '55%',
+      plugins: {
+        legend: { position: 'bottom', labels: { padding: 14, usePointStyle: true, pointStyleWidth: 8, color: '#ccc' } }
       }
     }
   });
 
-  // Productos
-  new Chart(document.getElementById('chartProductos'), {
+  // Rango de precios
+  const rangos = { 'S/0-25': 0, 'S/26-50': 0, 'S/51-75': 0, 'S/76-100': 0, 'S/101+': 0 };
+  for (const p of prods) {
+    if (p.precio <= 25) rangos['S/0-25']++;
+    else if (p.precio <= 50) rangos['S/26-50']++;
+    else if (p.precio <= 75) rangos['S/51-75']++;
+    else if (p.precio <= 100) rangos['S/76-100']++;
+    else rangos['S/101+']++;
+  }
+
+  new Chart(document.getElementById('chartPrecios'), {
     type: 'bar',
     data: {
-      labels: productosData.labels,
+      labels: Object.keys(rangos),
       datasets: [{
-        label: 'Clicks WhatsApp',
-        data: productosData.values,
-        backgroundColor: ['#E91E8C', '#C2185B', '#FFD700', '#1565C0', '#F48FB1'],
+        label: 'Productos',
+        data: Object.values(rangos),
+        backgroundColor: '#E91E8C',
         borderRadius: 8,
         borderSkipped: false
       }]
     },
     options: {
-      indexAxis: 'y',
       responsive: true,
       plugins: { legend: { display: false } },
       scales: {
-        x: { grid: { color: '#1e1e3a' }, ticks: { color: '#888' } },
-        y: { grid: { display: false }, ticks: { color: '#ccc', font: { size: 11 } } }
-      }
-    }
-  });
-
-  // Dispositivos
-  new Chart(document.getElementById('chartDispositivos'), {
-    type: 'doughnut',
-    data: {
-      labels: ['Mobile', 'Desktop'],
-      datasets: [{
-        data: [78, 22],
-        backgroundColor: ['#E91E8C', '#FFD700'],
-        borderColor: '#1a1a2e',
-        borderWidth: 3,
-        hoverBorderColor: '#1a1a2e'
-      }]
-    },
-    options: {
-      responsive: true,
-      cutout: '65%',
-      plugins: {
-        legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true, pointStyleWidth: 8, color: '#ccc' } }
-      }
-    }
-  });
-
-  // Horarios
-  new Chart(document.getElementById('chartHorarios'), {
-    type: 'line',
-    data: {
-      labels: horariosData.labels,
-      datasets: [{
-        label: 'WhatsApp clicks',
-        data: horariosData.values,
-        borderColor: '#22c55e',
-        backgroundColor: 'rgba(34,197,94,0.08)',
-        fill: true,
-        tension: 0.5,
-        pointBackgroundColor: '#22c55e',
-        pointRadius: 3,
-        borderWidth: 2
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: { beginAtZero: true, grid: { color: '#1e1e3a' }, ticks: { color: '#888' } },
-        x: { grid: { display: false }, ticks: { color: '#888', font: { size: 10 } } }
-      }
-    }
-  });
-
-  // Geografía
-  new Chart(document.getElementById('chartGeo'), {
-    type: 'bar',
-    data: {
-      labels: ['Pucallpa', 'Lima', 'Otras'],
-      datasets: [{
-        label: 'Visitas',
-        data: [185, 42, 20],
-        backgroundColor: ['#E91E8C', '#FFD700', '#6366f1'],
-        borderRadius: 6,
-        borderSkipped: false
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: { beginAtZero: true, grid: { color: '#1e1e3a' }, ticks: { color: '#888' } },
+        y: { beginAtZero: true, grid: { color: '#1e1e3a' }, ticks: { stepSize: 1, color: '#888' } },
         x: { grid: { display: false }, ticks: { color: '#ccc' } }
       }
     }
   });
+}
 
-  // Tabla de actividad
-  const actividad = [
-    { prod: 'Ramo Básico', accion: 'WhatsApp click', precio: 'S/45', hora: '18:32', disp: '📱 Mobile' },
-    { prod: 'Box Spiderman', accion: 'Modal visto', precio: 'S/60', hora: '17:15', disp: '📱 Mobile' },
-    { prod: 'Ramo Mariposas LED', accion: 'WhatsApp click', precio: 'S/55', hora: '16:48', disp: '💻 Desktop' },
-    { prod: 'Ramo Premium Cumpleaños', accion: 'Modal visto', precio: 'S/280', hora: '15:20', disp: '📱 Mobile' },
-    { prod: 'Ramo Hello Kitty', accion: 'WhatsApp click', precio: 'S/65', hora: '14:05', disp: '📱 Mobile' },
-    { prod: 'Box Universitario', accion: 'Modal visto', precio: 'S/50', hora: '13:40', disp: '💻 Desktop' },
-  ];
+// ─── TABLA ───
+function renderTabla(prods) {
+  const tbody = document.getElementById('tablaProductos');
+  const catMap = { 'ramos-clasicos': '🌹 Clásicos', 'ramos-especiales': '🦋 Especiales', 'ramos-tematicos': '🎀 Temáticos', 'boxes-tematicos': '📦 Boxes' };
   
-  const tbody = document.getElementById('tablaActividad');
-  actividad.forEach(function(row) {
-    const colorAccion = row.accion.includes('WhatsApp') ? 'text-green-400' : 'text-blue-400';
-    tbody.innerHTML += '<tr class="border-b border-[#1e1e3a]">' +
-      '<td class="py-3 font-medium text-white">' + row.prod + '</td>' +
-      '<td class="py-3 ' + colorAccion + '">' + row.accion + '</td>' +
-      '<td class="py-3">' + row.precio + '</td>' +
-      '<td class="py-3 text-gray-400">' + row.hora + '</td>' +
-      '<td class="py-3 hidden sm:table-cell">' + row.disp + '</td>' +
-      '</tr>';
-  });
+  tbody.innerHTML = prods.map(p => 
+    '<tr class="border-b border-[#1e1e3a]">' +
+      '<td class="py-3 font-medium text-white">' + p.nombre + '</td>' +
+      '<td class="py-3 text-gray-400">' + (catMap[p.categoria] || p.categoria) + '</td>' +
+      '<td class="py-3 text-brand-primary font-bold">S/' + p.precio + '</td>' +
+      '<td class="py-3">' + (p.badge || '<span class="text-gray-600">—</span>') + '</td>' +
+      '<td class="py-3 hidden sm:table-cell">' + 
+        (p.activo ? '<span class="text-green-400">✅ Activo</span>' : '<span class="text-red-400">❌ Inactivo</span>') +
+        (p.destacado ? ' ⭐' : '') +
+      '</td>' +
+    '</tr>'
+  ).join('');
+}
 
-  // Fecha actualización
-  const now = new Date();
-  document.getElementById('lastUpdate').textContent = 
-    now.toLocaleDateString('es-PE', { day:'numeric', month:'short' }) + ' ' +
-    now.toLocaleTimeString('es-PE', { hour:'2-digit', minute:'2-digit' });
+// ─── DESTACADOS ───
+function renderDestacados(prods) {
+  const destacados = prods.filter(p => p.destacado);
+  const container = document.getElementById('listaDestacados');
+  
+  if (destacados.length === 0) {
+    container.innerHTML = '<p class="text-gray-500 text-sm">No hay productos destacados. Marcalos desde el Dashboard.</p>';
+    return;
+  }
+
+  container.innerHTML = destacados.map(p =>
+    '<div class="flex items-center justify-between bg-[#111122] rounded-xl p-3">' +
+      '<div class="flex items-center gap-3">' +
+        (p.foto ? '<img src="' + p.foto + '" class="w-10 h-10 rounded-lg object-cover" onerror="this.style.display=\'none\'">' : '<span class="text-xl">🎀</span>') +
+        '<div><p class="font-medium text-white">' + p.nombre + '</p><p class="text-xs text-gray-500">' + (p.descripcion || '') + '</p></div>' +
+      '</div>' +
+      '<span class="font-bold text-brand-primary">S/' + p.precio + '</span>' +
+    '</div>'
+  ).join('');
+}
+
+// ─── RECIENTES ───
+function renderRecientes(prods) {
+  // Últimos 5 agregados (orden inverso del array)
+  const recientes = [...prods].reverse().slice(0, 5);
+  const container = document.getElementById('listaRecientes');
+  
+  container.innerHTML = recientes.map(p =>
+    '<div class="flex items-center justify-between bg-[#111122] rounded-xl p-3">' +
+      '<div class="flex items-center gap-3">' +
+        '<span class="text-lg">🆕</span>' +
+        '<div><p class="font-medium text-white">' + p.nombre + '</p><p class="text-xs text-gray-500">' + (p.badge || 'Sin badge') + '</p></div>' +
+      '</div>' +
+      '<span class="font-bold text-green-400">S/' + p.precio + '</span>' +
+    '</div>'
+  ).join('');
 }
 </script>
 
